@@ -3,6 +3,8 @@
  */
 package view;
 
+import java.util.LinkedHashMap;
+
 import controller.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -10,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,13 +31,19 @@ public class Graphic {
 	private GameController engine;
 	private Stage stage;
 	private Scene scene;
+	
+	private GBoard board;
 
 	private int width = 800;
 	private int height = 400;
 	private int minWidth = 600;
 	private int minHeight = 300;
 	
-	public Graphic(GameController engine, Stage stage)
+	public Graphic(
+			GameController engine, 
+			Stage stage, 
+			LinkedHashMap<String, Object> config
+			)
 	{
 		this.engine = engine;
 		this.stage = stage;
@@ -43,12 +52,11 @@ public class Graphic {
 		// Root element initialisieren
         StackPane root = new StackPane();
         
-        
-		// Hintergrund
-		root.getChildren().add(loadImage("res/map1.jpg", 0));
+		// Board
+        board = new GBoard(config, root);
+		//root.getChildren().add(board.getImage());
 		
 		// Places
-
 		final Timeline timeline = new Timeline();
 		ImageView p1 = loadImage("res/point.png", 50);
 		p1.setTranslateX(-200);
@@ -74,12 +82,12 @@ public class Graphic {
 		c1.setTranslateX(-100);
 		c1.setTranslateY(0);
 		root.getChildren().add(c1);
-		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
+		// MouseClick wird auch auf transparentem Hintergrund ausgelöst.
 		c1.setMouseTransparent(true);
         timeline.getKeyFrames().addAll(
             new KeyFrame(Duration.ZERO, // set start position at 0
-                new KeyValue(c1.translateXProperty(), -100),
-                new KeyValue(c1.translateYProperty(), 0)
+                new KeyValue(c1.translateXProperty(), c1.getTranslateX()),
+                new KeyValue(c1.translateYProperty(), c1.getTranslateY())
             ),
             new KeyFrame(new Duration(2000), // set end position at 40s
                 new KeyValue(c1.translateXProperty(), 0),
