@@ -3,7 +3,11 @@
  */
 package view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 /**
  * @author philipp
@@ -26,6 +30,30 @@ public class GChecker {
 	{
 		image.setTranslateX(p.x);
 		image.setTranslateY(p.y);
+	}
+	
+	public void moveTo(GPlace place)
+	{
+		this.place.unregister(this);
+		Position p = place.register(this);
+		startAnimationTo(p);
+	}
+	
+	private void startAnimationTo(Position p)
+	{
+
+		final Timeline t = new Timeline();
+		t.getKeyFrames().addAll(
+	            new KeyFrame(Duration.ZERO, // set start position at 0
+	                new KeyValue(image.translateXProperty(), image.getTranslateX()),
+	                new KeyValue(image.translateYProperty(), image.getTranslateY())
+	            ),
+	            new KeyFrame(new Duration(2000), // set end position at 40s
+	                new KeyValue(image.translateXProperty(), p.x),
+	                new KeyValue(image.translateYProperty(), p.y)
+	            )
+	        );
+		t.play();
 	}
 
 }

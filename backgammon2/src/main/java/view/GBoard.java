@@ -28,6 +28,11 @@ public class GBoard {
 		// Checkers hinzufügen
 		checkers = createCheckers(config, root);
 	}
+	
+	public void moveCheckerFromTo(String from, String to)
+	{
+		places.get(from).moveCheckerTo(places.get(to));
+	}
 
 	private LinkedHashMap<String, GChecker> createCheckers(
 			LinkedHashMap<String, Object> config,

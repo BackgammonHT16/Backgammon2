@@ -27,9 +27,8 @@ public class App extends Application
     	
     	config = readConfig("config.xml");
     	
-    	GameController engine = new GameController();
+    	GameEngine engine = new GameEngine(stage, config);
 
-    	Graphic graphic = new Graphic(engine, stage, config);
 
         
     }

@@ -3,7 +3,9 @@
  */
 package view;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javafx.scene.image.ImageView;
 
@@ -13,19 +15,19 @@ import javafx.scene.image.ImageView;
  */
 public abstract class GPlace {
 	private ImageView image;
-	private LinkedHashMap<String, GChecker> checkers;
+	private ArrayList<GChecker> checkers;
 	final String id;
 	
 	public GPlace(ImageView image, String id)
 	{
 		this.image = image;
 		this.id = id;
-		checkers = new LinkedHashMap<String, GChecker>();
+		checkers = new ArrayList<GChecker>();
 	}
 	
 	public Position register(GChecker checker)
 	{
-		checkers.put(checker.id, checker);
+		checkers.add(checker);
 		return getNewPosition();
 	}
 	
@@ -36,5 +38,19 @@ public abstract class GPlace {
 		return new Position(x, y);
 	}
 	
+	public void moveCheckerTo(GPlace place)
+	{
+		getLastChecker().moveTo(place);
+	}
+	
+	public void unregister(GChecker checker)
+	{
+		checkers.remove(checker);
+	}
+	
+	private GChecker getLastChecker()
+	{
+		return checkers.get(checkers.size() - 1);
+	}
 
 }

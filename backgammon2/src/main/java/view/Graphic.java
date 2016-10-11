@@ -28,7 +28,7 @@ import javafx.util.Duration;
  *
  */
 public class Graphic {
-	private GameController engine;
+	private GameEngine engine;
 	private Stage stage;
 	private Scene scene;
 	
@@ -40,7 +40,7 @@ public class Graphic {
 	private int minHeight = 300;
 	
 	public Graphic(
-			GameController engine, 
+			GameEngine engine, 
 			Stage stage, 
 			LinkedHashMap<String, Object> config
 			)
@@ -72,6 +72,7 @@ public class Graphic {
                     {
                         timeline.play();
                     	System.out.println("I was hit!");
+                    	board.moveCheckerFromTo("point0", "point2");
                     }
                 });
 		
