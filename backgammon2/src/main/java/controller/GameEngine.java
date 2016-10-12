@@ -35,6 +35,7 @@ public class GameEngine {
 	private Player currentPlayer;
 	private State currentState;
 	private Dice dice;
+	private CurrentMove currentMove;
 	
 	private Dice HumanDice;
 	private Place HumanStartPlace;
@@ -44,33 +45,63 @@ public class GameEngine {
 	private Place EndPlace;
 	
 	private Call<Integer> onClick;
-	
-	
-	private Human human;
-	//private Renderer renderer;
-	//public BoardController controller;
-	
-	
-	
+	private Graphic graphic;
 	
 	public GameEngine(Stage stage, LinkedHashMap<String, Object> config)
 	{
 		this.config = config;
 		this.stage = stage;
 		board = new Board(this, config);
-    	Graphic graphic = new Graphic(this, stage, config);
+    	graphic = new Graphic(this, stage, config);
+    	dice = new Dice();
+    	currentPlayer = board.getPlayers().get("0");
+    	currentState = new Start1(this);
+	}
+	
+	public CurrentMove getCurrentMove()
+	{
+		return currentMove;
 	}
 
+	public void setCurrentState()
+	{
+		currentMove = new CurrentMove(this);
+	}
+
+	public void resetCurrentState()
+	{
+		currentMove = null;
+	}
+	
+	public void clickedOnPlace(String id)
+	{
+		System.out.println("Hit Place: " + id);
+		if(currentMove != null)
+		{
+			currentMove.onClick(id);
+		}
+	}
+	
+	public void clickedOnDice()
+	{
+		System.out.println("Hit Dice");
+		if(onClick != null)
+		{
+			onClick.call(1, 2);
+		}
+	}
 	
 	public Dice rollDices()
 	{
 		dice.role();
+		graphic.rollDice(dice);
 		return dice;
 	}
 
 	public Dice rollSingleDice()
 	{
 		dice.roleSingleNumber();
+		graphic.rollDice(dice);
 		return dice;
 	}
 	
@@ -143,7 +174,7 @@ public class GameEngine {
 	public boolean allCheckersInHomeField()
 	{
 		boolean allCheckersAreHome = true;
-		List<Checker> c = board.getCheckers();
+		/*List<Checker> c = board.getCheckers();
 		for(int i = 0; i < c.size(); i++)
 		{
 			if(c.get(i).getPlayer() == currentPlayer)
@@ -170,16 +201,16 @@ public class GameEngine {
 					}
 				}
 			}
-		}
+		}*/
 		return allCheckersAreHome;
 	}
 	
 	
-	public List<Place> getLegalStartPlaces()
+	public LinkedHashMap<String, Place> getLegalStartPlaces()
 	{
 		// TODO gültige Startplätze für aktuellen Spieler ermmitteln
 		List<Place> result = new ArrayList<Place>();
-		List<Place> p = board.getPlaces();
+		/*List<Place> p = board.getPlaces();
 		int sign = -1;
 		if(currentPlayer == board.getPlayers().get(0))
 		{
@@ -212,64 +243,75 @@ public class GameEngine {
 					}
 				}
 			}
-		}
-		return null;
+		}*/
+		
+		//return null;
+		
+		return board.getPlaces();
+	}
+
+	public boolean isLegalStartPlace(Place place)
+	{
+		return true;
 	}
 	
 	public boolean isLegalEndPlace(Place place)
 	{
-		return false;
+		return true;
 	}
 
-	public List<Place> getLegalEndPlaces()
+	public LinkedHashMap<String, Place> getLegalEndPlaces()
 	{
 		return getLegalEndPlaces(StartPlace);
 	}
 	
-	public List<Place> getLegalEndPlaces(Place startPlace)
+	public LinkedHashMap<String, Place> getLegalEndPlaces(Place startPlace)
 	{
 		// TODO gültige Endplätze für aktuellen Spieler ermmitteln
-		return null;
+		//return null;
+		return getLegalStartPlaces();
 	}
 	
 	public boolean setStartPlace(Place p)
 	{
-		List<Place> places = getLegalStartPlaces();
+		LinkedHashMap<String, Place> places = getLegalStartPlaces();
 		// Der gewählte Platz ist gültig
-		if(places != null && places.contains(p))
+		if(places != null && places.containsValue(p))
 		{
 			StartPlace = p;
 			return true;
 		}
-		return false;
+		//return false;
+		return true;
 	}
 
 	public boolean setEndPlace(Place p)
 	{
-		List<Place> places = getLegalEndPlaces();
+		LinkedHashMap<String, Place> places = getLegalEndPlaces();
 		// Der gewählte Platz ist gültig
-		if(places != null && places.contains(p))
+		if(places != null && places.containsValue(p))
 		{
-			StartPlace = p;
+			EndPlace = p;
 			return true;
 		}
-		return false;
+		//return false;
+		return true;
 	}
 	
 	
-	/** the update method with the deltaTime in seconds **/
 	public void update(float deltaTime) {
 		currentState.nextAction();
 	}
-	
-	/** this will render the whole world **/
+
+	// TODO löschen
 	public void render(GraphicsContext g) {
 		//renderer.render(g);
 	}
 
 	public void executeMove() {
 		// TODO Auto-generated method stub
-		
+		board.moveCheckerFromTo(currentMove.getStart(), currentMove.getEnd());
+		graphic.moveCheckerFromTo(currentMove.getStart().getId(), currentMove.getEnd().getId());
 	}
 
 	public boolean won() {
@@ -294,9 +336,12 @@ public class GameEngine {
 	
 	public void nextPlayer()
 	{
-		int currentPlayerIndex = board.getPlayers().indexOf(currentPlayer);
-		int numberOfPlayers = board.getPlayers().size();
-		currentPlayer = board.getPlayers().get((currentPlayerIndex + 1) % numberOfPlayers);
+		System.out.print("player change! From: " + currentPlayer.getId() + " to ");
+		if(currentPlayer.getId() == "0")
+			currentPlayer = board.getPlayers().get("1");
+		else
+			currentPlayer = board.getPlayers().get("0");
+		System.out.println(currentPlayer.getId());
 	}
 	
 	public Player getPlayer()
@@ -318,26 +363,25 @@ public class GameEngine {
 	public Integer onClickRoleDice()
 	{
 		dice.role();
+		graphic.rollDice(dice);
 		HumanDice = dice;
 		System.out.println("roling!");
-		Checker c = board.getPlaces().get(5).removeChecker();
-		board.getPlaces().get(1).addChecker(c);
+		//Checker c = board.getPlaces().get(5).removeChecker();
+		//board.getPlaces().get(1).addChecker(c);
 		return 0;
 	}
 	public Integer onClickRoleDice(double x, double y)
 	{
 		dice.role();
+		graphic.rollDice(dice);
 		HumanDice = dice;
 		System.out.println("hit!");
-		Checker c = board.getPlaces().get(5).removeChecker();
-		board.getPlaces().get(1).addChecker(c);
-		if(x>100 && x <600 && y< 300)
-			System.out.println("hello world!");
 		return 0;
 	}
 	public Integer onClickRoleSingleDice()
 	{
 		dice.roleSingleNumber();
+		graphic.rollDice(dice);
 		HumanDice = dice;
 		System.out.println("roleSingleNumber!");
 		return 0;
@@ -354,5 +398,10 @@ public class GameEngine {
 		HumanEndPlace = board.getPlaces().get(6);
 		System.out.println("end!");
 		return 0;
+	}
+
+
+	public Place getPlace(String place) {
+		return board.getPlaces().get(place);
 	}
 }

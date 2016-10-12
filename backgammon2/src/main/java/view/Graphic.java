@@ -22,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Dice;
 
 /**
  * @author philipp
@@ -53,58 +54,13 @@ public class Graphic {
         StackPane root = new StackPane();
         
 		// Board
-        board = new GBoard(config, root);
-		//root.getChildren().add(board.getImage());
+        board = new GBoard(config, root, engine);
 		
 		// Places
-		final Timeline timeline = new Timeline();
-		ImageView p1 = loadImage("res/point.png", 50);
-		p1.setTranslateX(-200);
-		p1.setTranslateY(0);
-		root.getChildren().add(p1);
-		root.getChildren().add(new Circle(0, 0, 10));
-		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
-		p1.setPickOnBounds(true);
-		p1.setOnMouseClicked(
-                new EventHandler<MouseEvent>()
-                {
-                    public void handle(MouseEvent e)
-                    {
-                        timeline.play();
-                    	System.out.println("I was hit!");
-                    	board.moveCheckerFromTo("point0", "point2");
-                    }
-                });
 		
 		
 		
 		// Checkers
-		ImageView c1 = loadImage("res/checker.png", 50);
-		c1.setTranslateX(-100);
-		c1.setTranslateY(0);
-		root.getChildren().add(c1);
-		// MouseClick wird auch auf transparentem Hintergrund ausgelöst.
-		c1.setMouseTransparent(true);
-        timeline.getKeyFrames().addAll(
-            new KeyFrame(Duration.ZERO, // set start position at 0
-                new KeyValue(c1.translateXProperty(), c1.getTranslateX()),
-                new KeyValue(c1.translateYProperty(), c1.getTranslateY())
-            ),
-            new KeyFrame(new Duration(2000), // set end position at 40s
-                new KeyValue(c1.translateXProperty(), 0),
-                new KeyValue(c1.translateYProperty(), 0)
-            )
-        );
-		c1.setOnMouseClicked(
-                new EventHandler<MouseEvent>()
-                {
-                    public void handle(MouseEvent e)
-                    {
-                        
-                        // play 40s of animation
-                    	System.out.println("I was hit!");
-                    }
-                });
 		
 		// Würfel
 		
@@ -158,6 +114,31 @@ public class Graphic {
         iv.setSmooth(true);
         iv.setCache(true);
 		return iv;
+	}
+	
+	public void requestDiceRoll()
+	{
+		// TODO insert graphical dice activation
+	}
+
+	public void requestSelectStart(String[] points)
+	{
+		// TODO insert graphical point activation
+	}
+
+	public void requestSelectEnd(String[] ends)
+	{
+		// TODO insert graphical point activation
+	}
+	
+	public void rollDice(Dice d)
+	{
+		board.rollDice(d);
+	}
+	
+	public void moveCheckerFromTo(String from, String to)
+	{
+		board.moveCheckerFromTo(from, to);
 	}
 
 }

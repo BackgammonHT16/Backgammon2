@@ -8,10 +8,11 @@ package model;
  *
  */
 public class Goal extends Place {
-
 	Player player;
-	public Goal(Player player)
+	
+	public Goal(Player player, String id)
 	{
+		super(id);
 		this.player = player;
 	}
 

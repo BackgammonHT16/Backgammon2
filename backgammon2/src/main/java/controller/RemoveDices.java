@@ -8,7 +8,7 @@ package controller;
  *
  */
 public class RemoveDices extends State {
-
+	private boolean beenhere = false;
 	public RemoveDices(GameEngine engine) {
 		super(engine);
 		// TODO Auto-generated constructor stub
@@ -16,7 +16,13 @@ public class RemoveDices extends State {
 
 	@Override
 	public void nextAction() {
-		engine.executeMove();
+		if(!beenhere)
+		{
+			beenhere = true;
+			System.out.println("RemoveDices");
+		}
+		engine .resetCurrentState();
+		//engine.executeMove();
 		if(engine.won())
 		{
 			engine.finishGame();

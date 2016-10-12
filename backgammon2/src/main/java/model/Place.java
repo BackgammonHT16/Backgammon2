@@ -9,28 +9,40 @@ package model;
  */
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import view.GChecker;
+
 public abstract class Place {
-	private List<Checker> checkers = new ArrayList<Checker>();
+	private ArrayList<Checker> checkers = new ArrayList<Checker>();
+	private Player owner;
+	final String id;
 	
-	public void addChecker(Checker checker)
+	public String getId()
+	{
+		return id;
+	}
+	public Place(String id)
+	{
+		this.id = id;
+		owner = null;
+	}
+	
+	public void register(Checker checker)
 	{
 		if(checker != null)
 		{
 			checkers.add(checker);
+			owner = checker.getPlayer();
 		}
 	}
 	
-	public Checker removeChecker()
+	public void unregister(Checker checker)
 	{
-		if(checkers.isEmpty())
+		if(!checkers.isEmpty())
 		{
-			return null;
-		}
-		else
-		{
-			return checkers.remove(0);
+			checkers.remove(checker);
 		}
 	}
 	
@@ -43,8 +55,17 @@ public abstract class Place {
 	{
 		if(size() > 0)
 		{
-			return checkers.get(0).getPlayer();
+			return owner;
 		}
 		return null;
+	}
+
+	public void moveCheckerTo(Place place) {
+		getLastChecker().moveTo(place);
+	}
+	
+	private Checker getLastChecker()
+	{
+		return checkers.get(checkers.size() - 1);
 	}
 }

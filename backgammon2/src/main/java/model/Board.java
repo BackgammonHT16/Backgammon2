@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.Random;
 
 import controller.*;
+import javafx.scene.image.ImageView;
+import view.GChecker;
+import view.ImageHelper;
 
 
 public class Board {
-	private List<Checker> checkers = new ArrayList<Checker>();
-	private List<Place> places = new ArrayList<Place>();
-	private List<Player> players = new ArrayList<Player>();
+	private LinkedHashMap<String, Checker>  checkers = new LinkedHashMap<String, Checker> ();
+	private LinkedHashMap<String, Place>  places = new LinkedHashMap<String, Place> ();
+	private LinkedHashMap<String, Player>  players = new LinkedHashMap<String, Player> ();
 	
 	private GameEngine engine;
 	
@@ -33,53 +36,56 @@ public class Board {
 		initPlaces();
 		initCheckers();
 	}
+	
+	public void moveCheckerFromTo(Place start, Place end)
+	{
+		start.moveCheckerTo(end);
+	}
 
 	private void initPlaces()
 	{
-		for(int i = 0; i < 24; i++)
+		int numPoints = (Integer) config.get("numberOfPoints");
+		for(int i = 0; i < numPoints; i++)
 		{
-			places.add(new Point());
+			places.put("point" + i, new Point("point" + i));
 		}
-		places.add(new Bar(players.get(0)));
-		places.add(new Bar(players.get(1)));
-		places.add(new Goal(players.get(0)));
-		places.add(new Goal(players.get(1)));
+		places.put("bar0", new Bar(players.get(0), "bar0"));
+		places.put("bar1", new Bar(players.get(1), "bar1"));
+		places.put("goal0", new Goal(players.get(0), "goal0"));
+		places.put("goal1", new Goal(players.get(1), "goal1"));
 	}
 	
 	private void initPlayers()
 	{
-		players.add(new Human(this, engine));
-		players.add(new AI(this, engine));
+		players.put("0", new Human(this, engine, "0"));
+		players.put("1", new AI(this, engine, "1"));
 	}
 	
 	private void initCheckers()
 	{
-		placeNewCheckers(places.get(0), players.get(1), 2);
-		placeNewCheckers(places.get(5), players.get(0), 5);
-		placeNewCheckers(places.get(7), players.get(0), 3);
-		placeNewCheckers(places.get(11), players.get(1), 5);
-		placeNewCheckers(places.get(12), players.get(0), 5);
-		placeNewCheckers(places.get(16), players.get(1), 3);
-		placeNewCheckers(places.get(18), players.get(1), 5);
-		placeNewCheckers(places.get(23), players.get(0), 2);
-	}
-	
-	private void placeNewCheckers(Place place, Player player, int amount)
-	{
-		for(int i = 0; i < amount; i++)
+		int checkerId = 0;
+		int numPoints = (Integer) config.get("numberOfPoints");
+		for(int i = 0; i < numPoints; i++)
 		{
-			Checker c = new Checker(player, place);
-			place.addChecker(c);
+			if(config.get("point" + i + "CheckersNumber") != null)
+			{
+				for(int j = 0; j < (Integer)config.get("point" + i + "CheckersNumber"); j++)
+				{
+					Player p = players.get((Integer)config.get("point" + i + "CheckersPlayer"));
+					checkers.put(i+"", new Checker(p, places.get("point"+i), checkerId+""));
+					checkerId++;
+				}
+			}
 		}
 	}
 
-	public List<Checker> getCheckers() {
+	public LinkedHashMap<String, Checker> getCheckers() {
 		return checkers;
 	}
-	public List<Place> getPlaces() {
+	public LinkedHashMap<String, Place> getPlaces() {
 		return places;
 	}
-	public List<Player> getPlayers() {
+	public LinkedHashMap<String, Player> getPlayers() {
 		return players;
 	}
 

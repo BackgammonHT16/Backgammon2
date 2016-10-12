@@ -12,9 +12,9 @@ import controller.*;
 public class Human extends Player{
 	
 	
-	public Human(Board board, GameEngine engine)
+	public Human(Board board, GameEngine engine, String id)
 	{
-		super(board, engine);
+		super(board, engine, id);
 	}
 	
 	public Dice rollDices()

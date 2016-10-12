@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -15,9 +16,9 @@ import controller.GameEngine;
 
 public class AI extends Player {
 	
-	public AI(Board board, GameEngine engine)
+	public AI(Board board, GameEngine engine, String id)
 	{
-		super(board, engine);
+		super(board, engine, id);
 	}
 
 	@Override
@@ -36,10 +37,10 @@ public class AI extends Player {
 	@Override
 	public Place chooseStart() {
 		// TODO Add AI
-		List<Place> places = engine.getLegalStartPlaces();
+		LinkedHashMap<String, Place> places = engine.getLegalStartPlaces();
 		if(places != null)
 		{
-			return places.get(0);
+			return places.get("1");
 		}
 		// TODO Add valid code
 		return null;
@@ -49,10 +50,10 @@ public class AI extends Player {
 	@Override
 	public Place chooseEnd() {
 		// TODO Add AI
-		List<Place> places = engine.getLegalEndPlaces();
+		LinkedHashMap<String, Place> places = engine.getLegalEndPlaces();
 		if(places != null)
 		{
-			return places.get(0);
+			return places.get("0");
 		}
 		return null;
 	}

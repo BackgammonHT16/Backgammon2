@@ -11,6 +11,7 @@ import model.Dice;
  */
 public class Start2 extends State {
 
+	private boolean beenhere = false;
 	public Start2(GameEngine engine) {
 		super(engine);
 		// TODO Auto-generated constructor stub
@@ -18,6 +19,12 @@ public class Start2 extends State {
 
 	@Override
 	public void nextAction() {
+
+		if(!beenhere)
+		{
+			beenhere = true;
+			System.out.println("Start2");
+		}
 		Dice d = engine.getPlayer().rollSingleDice();
 		if(d != null)
 		{

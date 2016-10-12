@@ -23,6 +23,12 @@ public class ImageHelper extends ImageView {
 	{
 		LoadImage(filename, width, isClickable);
 	}
+	
+	public ImageHelper(Image image, int width, boolean isClickable)
+	{
+		LoadImage(image, width, isClickable);
+	}
+	
 	public ImageHelper(
 			String filename, 
 			Integer width, 
@@ -50,6 +56,16 @@ public class ImageHelper extends ImageView {
 	private void LoadImage(String filename, int width, boolean isClickable)
 	{
 		LoadImage(filename, width);
+		setMouseTransparent(!isClickable);
+	}
+
+	private void LoadImage(Image image, int width, boolean isClickable)
+	{
+		setImage(image);
+        setPreserveRatio(true);
+        setSmooth(true);
+        setCache(true);
+		setFitWidth(width);
 		setMouseTransparent(!isClickable);
 	}
 	

@@ -11,14 +11,20 @@ package controller;
 import model.*;
 
 public class Start1 extends State {
+	
+	private boolean beenhere = false;
 
 	public Start1(GameEngine engine) {
 		super(engine);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void nextAction() {
+		if(!beenhere)
+		{
+			beenhere = true;
+			System.out.println("Start1");
+		}
 		Dice d = engine.getPlayer().rollSingleDice();
 		if(d != null)
 		{

@@ -13,6 +13,7 @@ import model.Place;
  */
 public class PickEnd extends State {
 
+	private boolean beenhere = false;
 	public PickEnd(GameEngine engine) {
 		super(engine);
 		// TODO Auto-generated constructor stub
@@ -20,13 +21,20 @@ public class PickEnd extends State {
 
 	@Override
 	public void nextAction() {
-		Place p = engine.getPlayer().chooseEnd();
+		if(!beenhere)
+		{
+			beenhere = true;
+			System.out.println("PickEnd");
+		}
+		Place p = engine.getCurrentMove().getEnd(); //engine.getPlayer().chooseEnd();
 		if(p != null)
 		{
 			if(engine.setEndPlace(p))
 			{
+
+				engine.executeMove();
 				// Der gewählte Platz ist gültig
-				engine.setState(new PickEnd(engine));
+				engine.setState(new RemoveDices(engine));
 			}
 			// Der gewählte Platz ist ungültig d.h. der Zustand bleibt gleich
 		}
