@@ -40,7 +40,7 @@ public class AI extends Player {
 		LinkedHashMap<String, Place> places = engine.getLegalStartPlaces();
 		if(places != null)
 		{
-			return places.get("1");
+			return places.get("0");
 		}
 		// TODO Add valid code
 		return null;

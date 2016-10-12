@@ -84,10 +84,16 @@ public class App extends Application
     	config.put("checker0Image", "res/checker0.png");
     	config.put("checker1Image", "res/checker1.png");
     	
+    	// Menu
+    	config.put("menuButtonImage", "res/menu3.png");
+    	config.put("menuButtonWidth", 120);
+    	config.put("menuButtonPositionX", -335);
+    	config.put("menuButtonPositionY", 170);
+    	
 
     	// Dice
     	config.put("dicePositionX", -335d);
-    	config.put("dicePositionY", 170d);
+    	config.put("dicePositionY", 120d);
     	config.put("diceWidth", 30);
     	config.put("diceImage", "res/dice");
     	// Point Position

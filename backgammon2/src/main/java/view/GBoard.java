@@ -40,6 +40,34 @@ public class GBoard {
 		
 		// Dice hinzufügen
 		dice = createDice(config, root);
+		
+		// Menu Button
+		addMenuButton(config, root, engine);
+	}
+	
+	private void addMenuButton(
+			LinkedHashMap<String, Object> config,
+			StackPane root,
+			GameEngine engine)
+	{
+		ImageView im = new ImageHelper(
+				(String)config.get("menuButtonImage"),
+				(Integer)config.get("menuButtonWidth"),
+				true,
+				(Integer)config.get("menuButtonPositionX"),
+				(Integer)config.get("menuButtonPositionY"));
+		//places.put("goal0", new GGoal(im, "goal0"));
+		root.getChildren().add(im);
+		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
+		im.setPickOnBounds(true);
+		im.setOnMouseClicked(
+                new EventHandler<MouseEvent>()
+                {
+                    public void handle(MouseEvent e)
+                    {
+                    	GBoard.this.engine.clickedOnMenuButton();
+                    }
+                });
 	}
 	
 	public void rollDice(Dice d)

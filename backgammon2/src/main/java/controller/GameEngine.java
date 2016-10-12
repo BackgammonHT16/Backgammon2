@@ -8,6 +8,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 import controller.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -403,5 +406,13 @@ public class GameEngine {
 
 	public Place getPlace(String place) {
 		return board.getPlaces().get(place);
+	}
+
+	public void clickedOnMenuButton() {
+		//new JFrame().setVisible(true);
+		JDialog jd = new JDialog();
+		jd.setModal(true);
+		jd.setLocation(200, 200);
+		jd.show();
 	}
 }
