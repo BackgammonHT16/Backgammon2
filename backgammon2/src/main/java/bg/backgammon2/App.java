@@ -17,6 +17,8 @@ import view.Graphic;
 public class App extends Application
 {
 	
+	//testKommentar
+	
     public static void main( String[] args )
     {
     	launch(args);
