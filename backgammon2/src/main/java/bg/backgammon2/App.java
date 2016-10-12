@@ -63,13 +63,15 @@ public class App extends Application
     	config.put("numberOfPoints", 24);
 
     	// Place Größe
-    	config.put("pointWidth", 30);
+    	config.put("pointWidth", 40);
     	// Place Größe
-    	config.put("barWidth", 30);
+    	config.put("barWidth", 40);
     	// Place Größe
-    	config.put("goalWidth", 30);
+    	config.put("goalWidth", 40);
     	// Checker Größe
-    	config.put("checkerWidth", 10);
+    	
+    	
+    	config.put("checkerWidth", 15);
     	// Board Hintergrund
     	config.put("bgImage", "res/map1.jpg");
     	// Point

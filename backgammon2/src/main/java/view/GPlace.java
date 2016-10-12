@@ -17,12 +17,14 @@ public abstract class GPlace {
 	private ImageView image;
 	private ArrayList<GChecker> checkers;
 	final String id;
+	int checkerSize;
 	
-	public GPlace(ImageView image, String id)
+	public GPlace(ImageView image, String id, int checkerSize)
 	{
 		this.image = image;
 		this.id = id;
 		checkers = new ArrayList<GChecker>();
+		this.checkerSize = checkerSize;
 	}
 	
 	public Position register(GChecker checker)
@@ -33,8 +35,8 @@ public abstract class GPlace {
 	
 	private Position getNewPosition()
 	{
-		double x = image.getTranslateX() - 15 + 15 * (int)((checkers.size()-1) % 3);
-		double y = image.getTranslateY() + 20 + 10 * (int)((checkers.size()-1) / 3);
+		double x = image.getTranslateX() + 1.5 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
+		double y = image.getTranslateY() + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
 		return new Position(x, y);
 	}
 	

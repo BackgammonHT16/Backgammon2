@@ -12,8 +12,8 @@ import javafx.scene.image.ImageView;
  */
 public class GGoal extends GPlace {
 
-	public GGoal(ImageView image, String id) {
-		super(image, id);
+	public GGoal(ImageView image, String id, int checkerSize) {
+		super(image, id, checkerSize);
 	}
 	
 

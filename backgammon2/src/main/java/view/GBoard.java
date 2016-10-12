@@ -174,7 +174,7 @@ public class GBoard {
 	                    }
 	                });
 			root.getChildren().add(im);
-			places.put("point"+i, new GPoint(im, "point"+i));
+			places.put("point"+i, new GPoint(im, "point"+i, (Integer)config.get("checkerWidth")));
 		}
 	}
 
@@ -190,7 +190,7 @@ public class GBoard {
 				true,
 				(Integer)config.get("bar0PositionX"),
 				(Integer)config.get("bar0PositionY"));
-		places.put("bar0", new GBar(im, "bar0"));
+		places.put("bar0", new GBar(im, "bar0", (Integer)config.get("checkerWidth")));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -209,7 +209,7 @@ public class GBoard {
 				true,
 				(Integer)config.get("bar1PositionX"),
 				(Integer)config.get("bar1PositionY"));
-		places.put("bar1", new GBar(im, "bar1"));
+		places.put("bar1", new GBar(im, "bar1", (Integer)config.get("checkerWidth")));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -235,7 +235,7 @@ public class GBoard {
 				true,
 				(Integer)config.get("goal0PositionX"),
 				(Integer)config.get("goal0PositionY"));
-		places.put("goal0", new GGoal(im, "goal0"));
+		places.put("goal0", new GGoal(im, "goal0", (Integer)config.get("checkerWidth")));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -254,7 +254,7 @@ public class GBoard {
 				true,
 				(Integer)config.get("goal1PositionX"),
 				(Integer)config.get("goal1PositionY"));
-		places.put("goal1", new GGoal(im, "goal1"));
+		places.put("goal1", new GGoal(im, "goal1", (Integer)config.get("checkerWidth")));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);

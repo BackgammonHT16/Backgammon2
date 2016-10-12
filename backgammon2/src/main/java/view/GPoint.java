@@ -11,8 +11,8 @@ import javafx.scene.image.ImageView;
  */
 public class GPoint extends GPlace {
 
-	public GPoint(ImageView image, String id) {
-		super(image, id);
+	public GPoint(ImageView image, String id, int checkerSize) {
+		super(image, id, checkerSize);
 	}
 
 }
