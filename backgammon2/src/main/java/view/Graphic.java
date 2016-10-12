@@ -55,6 +55,11 @@ public class Graphic {
         
 		// Board
         board = new GBoard(config, root, engine);
+
+        width = (Integer)config.get("width");
+        height = (Integer)config.get("height");
+        minWidth = (Integer)config.get("minWidth");
+        minHeight = (Integer)config.get("minHeight");
 		
 		// Places
 		
