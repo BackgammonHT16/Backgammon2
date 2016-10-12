@@ -58,8 +58,8 @@ public class App extends Application
     	config.put("width", 800);
     	config.put("height", 400);
     	// Mindestgröße des Fensters
-    	config.put("minwidth", 600);
-    	config.put("minheight", 300);
+    	config.put("minWidth", 800);
+    	config.put("minHeight", 400);
     	
     	// Anzahl der Points
     	config.put("numberOfPoints", 24);
