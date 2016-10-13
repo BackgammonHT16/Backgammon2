@@ -17,4 +17,19 @@ public abstract class State {
 	
 	public abstract void nextAction();
 	
+	public void onClickPlace()
+	{
+		
+	}
+	
+	public void onClickMenu()
+	{
+		
+	}
+	
+	public void onClickDice()
+	{
+		
+	}
+	
 }

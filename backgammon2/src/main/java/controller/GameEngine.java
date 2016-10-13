@@ -61,6 +61,27 @@ public class GameEngine {
     	currentState = new Start1(this);
 	}
 	
+	
+	
+
+	public void onClickPlace()
+	{
+		
+	}
+	
+	public void onClickMenu()
+	{
+		
+	}
+	
+	public void onClickDice()
+	{
+		
+	}
+	
+	
+	
+	
 	public CurrentMove getCurrentMove()
 	{
 		return currentMove;
