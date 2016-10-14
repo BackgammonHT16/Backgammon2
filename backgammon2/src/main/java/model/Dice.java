@@ -108,6 +108,7 @@ public class Dice {
 		Random r = new Random();
 		// Zufällige Zahl zwischen 1 und 6
 		return r.nextInt(6) + 1;
+		//return 1;
 	}
 	
 	public void removeDice(int i)

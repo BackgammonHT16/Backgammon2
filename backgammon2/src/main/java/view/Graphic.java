@@ -23,6 +23,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Dice;
+import model.Place;
 
 /**
  * @author philipp
@@ -148,6 +149,13 @@ public class Graphic {
 
 	public void updateDice(Dice dice) {
 		board.updateDice(dice);
+	}
+
+	public void selectPlaces(LinkedHashMap<String, Place> places) {
+		board.selectPlaces(places);
+	}
+	public void unselectAllPlaces() {
+		board.unselectAllPlaces();
 	}
 
 }

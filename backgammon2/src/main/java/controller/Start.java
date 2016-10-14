@@ -26,7 +26,7 @@ public class Start extends State {
 		// AI würfelt
 		engine.nextPlayer();
 		engine.rollSingleDice();
-		if(engine.getDice().getValue(0) > engine.getDice().getValue(1))
+		if(engine.getDice().getAbsValue(0) > engine.getDice().getAbsValue(1))
 		{
 			engine.nextPlayer();
 		}

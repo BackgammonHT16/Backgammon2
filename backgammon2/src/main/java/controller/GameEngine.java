@@ -84,6 +84,14 @@ public class GameEngine {
 		currentState = state;
 	}
 
+	public void selectPlaces(LinkedHashMap<String, Place> places)
+	{
+		graphic.selectPlaces(places);
+	}
+	public void unselectAllPlaces()
+	{
+		graphic.unselectAllPlaces();
+	}
 	
 	public LinkedHashMap<String, Place> getLegalStartPlaces()
 	{
@@ -185,8 +193,12 @@ public class GameEngine {
 		{
 			return  false;
 		}
-		if(place.getOwner() == currentPlayer || 
-				place.size() <= 1)
+		if((place.getOwner() == currentPlayer || 
+				place.size() <= 1) && place instanceof Point)
+		{
+			return true;
+		}
+		if(place instanceof Goal && place.getOwner() == currentPlayer && currentPlayer.allCheckersInHomeField())
 		{
 			return true;
 		}
@@ -480,6 +492,7 @@ public class GameEngine {
 			currentPlayer = board.getPlayers().get("1");
 		else
 			currentPlayer = board.getPlayers().get("0");
+		dice.setPlayer(currentPlayer);
 		System.out.println(currentPlayer.getId());
 	}
 	

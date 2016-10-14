@@ -4,6 +4,7 @@
 package view;
 
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -12,8 +13,8 @@ import javafx.scene.image.ImageView;
  */
 public class GGoal extends GPlace {
 
-	public GGoal(ImageView image, String id, int checkerSize) {
-		super(image, id, checkerSize);
+	public GGoal(ImageView image, String id, int checkerSize, Image imageNormal, Image imageSelected) {
+		super(image, id, checkerSize, imageNormal, imageSelected);
 	}
 	
 

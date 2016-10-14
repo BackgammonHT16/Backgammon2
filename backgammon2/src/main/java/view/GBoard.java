@@ -4,6 +4,7 @@
 package view;
 
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import controller.GameEngine;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import model.Dice;
+import model.Place;
 
 /**
  * @author philipp
@@ -159,6 +161,8 @@ public class GBoard {
 			GameEngine engine)
 	{
 		int numPoints = (Integer) config.get("numberOfPoints");
+		Image imageNormal =  new Image("file:" + (String)config.get("pointImage"));
+		Image imageSelected =  new Image("file:" + (String)config.get("pointSelectedImage"));
 		for(int i = 0; i < numPoints; i++)
 		{
 			ImageView im = new ImageHelper(
@@ -180,7 +184,7 @@ public class GBoard {
 	                    }
 	                });
 			root.getChildren().add(im);
-			places.put("point"+i, new GPoint(im, "point"+i, (Integer)config.get("checkerWidth")));
+			places.put("point"+i, new GPoint(im, "point"+i, (Integer)config.get("checkerWidth"), imageNormal, imageSelected));
 		}
 	}
 
@@ -190,13 +194,15 @@ public class GBoard {
 			StackPane root,
 			GameEngine engine)
 	{
+		Image imageNormal =  new Image("file:" + (String)config.get("bar0Image"));
+		Image imageSelected =  new Image("file:" + (String)config.get("bar0SelectedImage"));
 		ImageView im = new ImageHelper(
 				(String)config.get("bar0Image"),
 				(Integer)config.get("barWidth"),
 				true,
 				(Integer)config.get("bar0PositionX"),
 				(Integer)config.get("bar0PositionY"));
-		places.put("bar0", new GBar(im, "bar0", (Integer)config.get("checkerWidth")));
+		places.put("bar0", new GBar(im, "bar0", (Integer)config.get("checkerWidth"), imageNormal, imageSelected));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -209,14 +215,16 @@ public class GBoard {
                     	GBoard.this.engine.onClickPlace("bar0");
                     }
                 });
-		
+
+		imageNormal =  new Image("file:" + (String)config.get("bar1Image"));
+		imageSelected =  new Image("file:" + (String)config.get("bar1SelectedImage"));
 		im = new ImageHelper(
 				(String)config.get("bar1Image"),
 				(Integer)config.get("barWidth"),
 				true,
 				(Integer)config.get("bar1PositionX"),
 				(Integer)config.get("bar1PositionY"));
-		places.put("bar1", new GBar(im, "bar1", (Integer)config.get("checkerWidth")));
+		places.put("bar1", new GBar(im, "bar1", (Integer)config.get("checkerWidth"), imageNormal, imageSelected));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -237,13 +245,15 @@ public class GBoard {
 			StackPane root,
 			GameEngine engine)
 	{
+		Image imageNormal =  new Image("file:" + (String)config.get("goal0Image"));
+		Image imageSelected =  new Image("file:" + (String)config.get("goal0SelectedImage"));
 		ImageView im = new ImageHelper(
 				(String)config.get("goal0Image"),
 				(Integer)config.get("goalWidth"),
 				true,
 				(Integer)config.get("goal0PositionX"),
 				(Integer)config.get("goal0PositionY"));
-		places.put("goal0", new GGoal(im, "goal0", (Integer)config.get("checkerWidth")));
+		places.put("goal0", new GGoal(im, "goal0", (Integer)config.get("checkerWidth"), imageNormal, imageSelected));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -256,14 +266,16 @@ public class GBoard {
                     	GBoard.this.engine.onClickPlace("goal0");
                     }
                 });
-		
+
+		imageNormal =  new Image("file:" + (String)config.get("goal1Image"));
+		imageSelected =  new Image("file:" + (String)config.get("goal1SelectedImage"));
 		im = new ImageHelper(
 				(String)config.get("goal1Image"),
 				(Integer)config.get("goalWidth"),
 				true,
 				(Integer)config.get("goal1PositionX"),
 				(Integer)config.get("goal1PositionY"));
-		places.put("goal1", new GGoal(im, "goal1", (Integer)config.get("checkerWidth")));
+		places.put("goal1", new GGoal(im, "goal1", (Integer)config.get("checkerWidth"), imageNormal, imageSelected));
 		root.getChildren().add(im);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		im.setPickOnBounds(true);
@@ -285,5 +297,20 @@ public class GBoard {
 
 	public void updateDice(Dice dice) {
 		this.dice.updateDice(dice);
+	}
+
+	public void selectPlaces(LinkedHashMap<String, Place> places) {
+		for(Entry<String, Place> p : places.entrySet())
+		{
+			this.places.get(p.getKey()).setSelected();
+		}
+	}
+	
+
+	public void unselectAllPlaces() {
+		for(Entry<String, GPlace> p : places.entrySet())
+		{
+			p.getValue().setNormal();
+		}
 	}
 }

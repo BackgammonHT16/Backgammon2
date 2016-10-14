@@ -16,13 +16,14 @@ public class PickEnd extends State {
 	private boolean beenhere = false;
 	public PickEnd(GameEngine engine) {
 		super(engine);
-		// TODO Auto-generated constructor stub
+		engine.selectPlaces(engine.getLegalEndPlaces());
 	}
 
 	public void onClickPlace(String placeId)
 	{
 		if(engine.setEndPlace(engine.getPlace(placeId)) == true)
 		{
+			engine.unselectAllPlaces();
 			System.out.println("End Place: " + placeId);
 			engine.executeMove();		
 			if(engine.won())

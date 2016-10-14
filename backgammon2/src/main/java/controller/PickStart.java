@@ -6,17 +6,18 @@ import java.util.List;
 
 public class PickStart extends State {
 
-	private boolean beenhere = false;
 	public PickStart(GameEngine engine) {
 		super(engine);
+		engine.selectPlaces(engine.getLegalStartPlaces());
 	}
 	
 	public void onClickPlace(String placeId)
 	{
-		engine.getDice().setPlayer(engine.getPlayer());
+		//engine.getDice().setPlayer(engine.getPlayer());
 		if(engine.setStartPlace(engine.getPlace(placeId)) == true)
 		{
 			System.out.println("Start Place: " + placeId);
+			engine.unselectAllPlaces();
 			engine.setState(new PickEnd(engine));
 		}
 	}

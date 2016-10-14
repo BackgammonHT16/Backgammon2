@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -15,16 +16,30 @@ import javafx.scene.image.ImageView;
  */
 public abstract class GPlace {
 	private ImageView image;
+	private Image imageNormal;
+	private Image imageSelected;
 	private ArrayList<GChecker> checkers;
 	final String id;
 	int checkerSize;
 	
-	public GPlace(ImageView image, String id, int checkerSize)
+	public GPlace(ImageView image, String id, int checkerSize, Image imageNormal, Image imageSelected)
 	{
 		this.image = image;
+		this.imageNormal = imageNormal;
+		this.imageSelected = imageSelected;
 		this.id = id;
 		checkers = new ArrayList<GChecker>();
 		this.checkerSize = checkerSize;
+	}
+	
+	public void setSelected()
+	{
+		image.setImage(imageSelected);
+	}
+
+	public void setNormal()
+	{
+		image.setImage(imageNormal);
 	}
 	
 	public Position register(GChecker checker)

@@ -61,12 +61,17 @@ public class App extends Application
     	config.put("bgImage", "res/map1.jpg");
     	// Point
     	config.put("pointImage", "res/point.png");
+    	config.put("pointSelectedImage", "res/pointGlow.png");
     	// Bar
     	config.put("bar0Image", "res/bar0.png");
+    	config.put("bar0SelectedImage", "res/bar0Glow.png");
     	config.put("bar1Image", "res/bar1.png");
+    	config.put("bar1SelectedImage", "res/bar1Glow.png");
     	// Goal
     	config.put("goal0Image", "res/goal0.png");
+    	config.put("goal0SelectedImage", "res/goal0Glow.png");
     	config.put("goal1Image", "res/goal1.png");
+    	config.put("goal1SelectedImage", "res/goal1Glow.png");
     	// Checker
     	config.put("checker0Image", "res/checker0.png");
     	config.put("checker1Image", "res/checker1.png");
