@@ -22,12 +22,17 @@ public abstract class State {
 	
 	public void onClickMenu()
 	{
-		
+		engine.setState(new Menu(engine, engine.getCurrentState()));
 	}
 	
 	public void onClickDice()
 	{
 		
+	}
+
+	public void onCloseMenu()
+	{
+
 	}
 	
 }

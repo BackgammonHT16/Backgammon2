@@ -28,7 +28,9 @@ public class PickEnd extends State {
 			engine.executeMove();		
 			if(engine.won())
 			{
+				System.out.println("Game was won by player " + engine.getPlayer().getId());
 				engine.finishGame();
+				engine.setState(new Menu(engine, null));
 			}
 			else if(engine.diceLeft())
 			{

@@ -3,6 +3,7 @@
  */
 package view;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 
 import controller.*;
@@ -19,6 +20,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,6 +38,7 @@ public class Graphic {
 	private Scene scene;
 	
 	private GBoard board;
+	private MediaPlayer mediaPlayer;
 
 	private int width = 800;
 	private int height = 400;
@@ -61,6 +65,9 @@ public class Graphic {
         height = (Integer)config.get("height");
         minWidth = (Integer)config.get("minWidth");
         minHeight = (Integer)config.get("minHeight");
+        
+        // Sound
+        initSound((String)config.get("soundFile"));
 		
 		// Places
 		
@@ -156,6 +163,25 @@ public class Graphic {
 	}
 	public void unselectAllPlaces() {
 		board.unselectAllPlaces();
+	}
+	
+	public void sound(Boolean play)
+	{
+		if(play)
+		{
+			mediaPlayer.play();
+		}
+		else
+		{
+			mediaPlayer.stop();
+		}
+	}
+	
+
+	private void initSound(String musicFile) {
+		Media media = new Media(new File(musicFile).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 	}
 
 }

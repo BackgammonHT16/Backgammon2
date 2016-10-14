@@ -46,28 +46,28 @@ public class Checker {
 	
 	public boolean isInHomeField() 
 	{
-		if(player.getId() == "0")
+		if(player.getId().equals("0"))
 		{
-			if(place.getId() == "point18" ||
-					place.getId() == "point19" ||
-					place.getId() == "point20" ||
-					place.getId() == "point21" ||
-					place.getId() == "point22" ||
-					place.getId() == "point23" ||
-					place.getId() == "goal0")
+			if(place.getId().equals("point18") ||
+					place.getId().equals("point19") ||
+					place.getId().equals("point20") ||
+					place.getId().equals("point21") ||
+					place.getId().equals("point22") ||
+					place.getId().equals("point23") ||
+					place.getId().equals("goal0"))
 			{
 				return true;
 			}
 		}
-		if(player.getId() == "1")
+		if(player.getId().equals("1"))
 		{
-			if(place.getId() == "point0" ||
-					place.getId() == "point1" ||
-					place.getId() == "point2" ||
-					place.getId() == "point3" ||
-					place.getId() == "point4" ||
-					place.getId() == "point5" ||
-					place.getId() == "goal1")
+			if(place.getId().equals("point0") ||
+					place.getId().equals("point1") ||
+					place.getId().equals("point2") ||
+					place.getId().equals("point3") ||
+					place.getId().equals("point4") ||
+					place.getId().equals("point5") ||
+					place.getId().equals("goal1"))
 			{
 				return true;
 			}
@@ -76,16 +76,16 @@ public class Checker {
 	}
 
 	public boolean isInGoal() {
-		if(player.getId() == "0")
+		if(player.getId().equals("0"))
 		{
-			if(place.getId() == "goal0")
+			if(place.getId().equals("goal0"))
 			{
 				return true;
 			}
 		}
-		if(player.getId() == "1")
+		if(player.getId().equals("1"))
 		{
-			if(place.getId() == "goal1")
+			if(place.getId().equals("goal1"))
 			{
 				return true;
 			}

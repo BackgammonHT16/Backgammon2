@@ -37,6 +37,9 @@ public class App extends Application
     {
     	// TODO XML Parser Implementieren
     	LinkedHashMap<String, Object> config = new LinkedHashMap<String, Object>();
+    	// Sound File
+    	config.put("soundFile", "res/sound_long.mp3");
+    	
     	// Innere Fenster Größe
     	config.put("width", 800);
     	config.put("height", 400);
@@ -176,7 +179,7 @@ public class App extends Application
     	config.put("goal1PositionX", -370);
     	config.put("goal1PositionY", -120);
     	
-    	// Checkers hinzufügen
+/**/    	// Checkers hinzufügen
     	config.put("point0CheckersNumber", 2);
     	config.put("point0CheckersPlayer", 0);
 
@@ -200,8 +203,14 @@ public class App extends Application
 
     	config.put("point23CheckersNumber", 2);
     	config.put("point23CheckersPlayer", 1);
+/**/
+/*
+    	config.put("point0CheckersNumber", 2);
+    	config.put("point0CheckersPlayer", 1);
 
-    	
+    	config.put("point23CheckersNumber", 2);
+    	config.put("point23CheckersPlayer", 0);
+*/    	
     	return config;
     }
 }

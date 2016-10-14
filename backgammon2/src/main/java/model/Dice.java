@@ -15,7 +15,7 @@ public class Dice {
 	{
 		if(player != null)
 		{
-			if(player.getId() == "0")
+			if(player.getId().equals("0"))
 			{
 				sign = 1;
 			}
@@ -33,7 +33,7 @@ public class Dice {
 		isUsed = new ArrayList<Boolean>(Arrays.asList(false, false));
 				
 		// Pasch
-		if(value.get(0) == value.get(1))
+		if(value.get(0).equals(value.get(1)))
 		{
 			value.add(value.get(0));
 			isUsed.add(false);
@@ -56,7 +56,7 @@ public class Dice {
 		isUsed.add(false);
 		
 		//Pasch
-		if(value.size() == 2 && value.get(0) == value.get(1))
+		if(value.size() == 2 && value.get(0).equals(value.get(1)))
 		{
 			value.add(value.get(0));
 			isUsed.add(false);
@@ -115,19 +115,19 @@ public class Dice {
 	{
 		if(i < isUsed.size())
 		{
-			if(value.size() > 3 && value.get(i) == value.get(3) && !isUsed.get(3))
+			if(value.size() > 3 && value.get(i).equals(value.get(3)) && !isUsed.get(3))
 			{
 				isUsed.set(3, true);
 			}
-			else if(value.size() > 2 && value.get(i) == value.get(2) && !isUsed.get(2))
+			else if(value.size() > 2 && value.get(i).equals(value.get(2)) && !isUsed.get(2))
 			{
 				isUsed.set(2, true);
 			}
-			else if(value.size() > 1 && value.get(i) == value.get(1) && !isUsed.get(1))
+			else if(value.size() > 1 && value.get(i).equals(value.get(1)) && !isUsed.get(1))
 			{
 				isUsed.set(1, true);
 			}
-			else if(value.size() > 0 && value.get(i) == value.get(0) && !isUsed.get(0))
+			else if(value.size() > 0 && value.get(i).equals(value.get(0)) && !isUsed.get(0))
 			{
 				isUsed.set(0, true);
 			}

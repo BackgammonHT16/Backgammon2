@@ -1,6 +1,10 @@
 package controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.Dice;
+import model.Human;
 
 public class Role extends State {
 	private boolean beenhere = false;
@@ -20,7 +24,17 @@ public class Role extends State {
 		}
 		else
 		{
-			engine.setState(new PickStart(engine));
+			if(engine.getPlayer() instanceof Human)
+			{
+				engine.setState(new PickStart(engine));
+			}
+			else
+			{
+				Timeline timeline = new Timeline(new KeyFrame(
+				        Duration.millis(2500),
+				        ae -> engine.setState(new PickStart(engine))));
+				timeline.play();
+			}
 		}
 	}
 }

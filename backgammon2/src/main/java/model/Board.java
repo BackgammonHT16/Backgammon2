@@ -49,10 +49,10 @@ public class Board {
 		{
 			places.put("point" + i, new Point("point" + i));
 		}
-		places.put("bar0", new Bar(players.get(0), "bar0"));
-		places.put("bar1", new Bar(players.get(1), "bar1"));
-		places.put("goal0", new Goal(players.get(0), "goal0"));
-		places.put("goal1", new Goal(players.get(1), "goal1"));
+		places.put("bar0", new Bar(players.get("0"), "bar0"));
+		places.put("bar1", new Bar(players.get("1"), "bar1"));
+		places.put("goal0", new Goal(players.get("0"), "goal0"));
+		places.put("goal1", new Goal(players.get("1"), "goal1"));
 	}
 	
 	private void initPlayers()

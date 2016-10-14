@@ -3,6 +3,7 @@
  */
 package controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.concurrent.Callable;
 import javax.swing.JDialog;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.*;
 import view.*;
@@ -40,12 +43,29 @@ public class GameEngine {
 	{
 		this.config = config;
 		this.stage = stage;
+		/*
+		board = new Board(this, config);
+    	graphic = new Graphic(this, stage, config);
+    	dice = new Dice();
+    	currentPlayer = board.getPlayers().get("0");
+    	*/
+    	currentState = new Menu(this, null);
+	}
+	
+	public void quit()
+	{
+		stage.hide();
+	}
+	
+	public void resetGame(int color, int difficulty, int time)
+	{
 		board = new Board(this, config);
     	graphic = new Graphic(this, stage, config);
     	dice = new Dice();
     	currentPlayer = board.getPlayers().get("0");
     	currentState = new Start(this);
 	}
+	
 
 	public void onClickPlace(String placeId)
 	{
@@ -177,7 +197,7 @@ public class GameEngine {
 		{
 			return false;
 		}
-		if(place.getOwner().getId() == currentPlayer.getId())
+		if(place.getOwner().getId().equals(currentPlayer.getId()) && place.size() > 0)
 		{
 			if((isLegalEndPlace(getPlacePlusN(place, dice.getValue(0), allHome)) && !dice.isUsed(0)) ||
 					(isLegalEndPlace(getPlacePlusN(place, dice.getValue(1), allHome)) && !dice.isUsed(1)))
@@ -196,19 +216,19 @@ public class GameEngine {
 		{
 			return getPlaceFromIDPlusN(id, n, allHome);
 		}
-		else if(place.getId() == "bar0")
+		else if(place.getId().equals("bar0"))
 		{
 			return getPlaceFromIDPlusN(-1, n, allHome);
 		}
-		else if(place.getId() == "goal0")
+		else if(place.getId().equals("goal0"))
 		{
 			return getPlaceFromIDPlusN(24, n, allHome);
 		}
-		else if(place.getId() == "bar1")
+		else if(place.getId().equals("bar1"))
 		{
 			return getPlaceFromIDPlusN(24, n, allHome);
 		}
-		else if(place.getId() == "goal1")
+		else if(place.getId().equals("goal1"))
 		{
 			return getPlaceFromIDPlusN(-1, n, allHome);
 		}
@@ -223,22 +243,22 @@ public class GameEngine {
 		}
 		else if((id + n == 24) || ((id + n >= 24) && allHome))
 		{
-			if(currentPlayer.getId() == "0")
+			if(currentPlayer.getId().equals("0"))
 			{
 				return getPlace("goal0");
 			}
-			if(currentPlayer.getId() == "1")
+			if(currentPlayer.getId().equals("1"))
 			{
 				return getPlace("bar1");
 			}
 		}
 		else if(id + n == -1 || ((id + n <= -1) && allHome))
 		{
-			if(currentPlayer.getId() == "0")
+			if(currentPlayer.getId().equals("0"))
 			{
 				return getPlace("bar0");
 			}
-			if(currentPlayer.getId() == "1")
+			if(currentPlayer.getId().equals("1"))
 			{
 				return getPlace("goal1");
 			}
@@ -272,7 +292,7 @@ public class GameEngine {
 	public LinkedHashMap<String, Place> getLegalEndPlaces()
 	{
 		LinkedHashMap<String, Place> result = new LinkedHashMap<String, Place>();
-		boolean allHome = allHome();
+		boolean allHome = this.allHome();
 		if(startPlace == null || dice == null)
 		{
 			return null;
@@ -364,15 +384,18 @@ public class GameEngine {
 		return false;
 	}
 	
+	
+	// TODO Es kann im Endspiel (abstand Goal < würfel) dazu kommen dass 
+	// der entsprechende würfel nicht entfernt wird
 	private void removeDices()
 	{
-		boolean allHome = allHome();
-		if(dice.size() > 0)
+		boolean allHome = this.allHome();
+		if(dice.size() > 0 && !dice.isUsed(0))
 		{
 			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 			if(p != null)
 			{
-				if(p.getId() == endPlace)
+				if(p.getId().equals(endPlace))
 				{
 					dice.removeDice(0);
 					graphic.updateDice(dice);
@@ -380,12 +403,12 @@ public class GameEngine {
 				}
 			}
 		}
-		if(dice.size() > 1)
+		if(dice.size() > 1 && !dice.isUsed(1))
 		{
 			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome);
 			if(p != null)
 			{
-				if(p.getId() == endPlace)
+				if(p.getId().equals(endPlace))
 				{
 					dice.removeDice(1);
 					graphic.updateDice(dice);
@@ -398,7 +421,7 @@ public class GameEngine {
 			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome);
 			if(p != null)
 			{
-				if(p.getId() == endPlace)
+				if(p.getId().equals(endPlace))
 				{
 					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
@@ -426,7 +449,7 @@ public class GameEngine {
 			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome);
 			if(p != null)
 			{
-				if(p.getId() == endPlace)
+				if(p.getId().equals(endPlace))
 				{
 					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
@@ -451,7 +474,7 @@ public class GameEngine {
 			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3), allHome);
 			if(p != null)
 			{
-				if(p.getId() == endPlace)
+				if(p.getId().equals(endPlace))
 				{
 					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
@@ -481,11 +504,11 @@ public class GameEngine {
 	
 	private Player getOtherPlayer()
 	{
-		if(currentPlayer.getId() == "0")
+		if(currentPlayer.getId().equals("0"))
 		{
 			return board.getPlayers().get("1");
 		}
-		else if(currentPlayer.getId() == "1")
+		else if(currentPlayer.getId().equals("1"))
 		{
 			return board.getPlayers().get("0");
 		}
@@ -549,7 +572,7 @@ public class GameEngine {
 	public void nextPlayer()
 	{
 		System.out.print("player change! From: " + currentPlayer.getId() + " to ");
-		if(currentPlayer.getId() == "0")
+		if(currentPlayer.getId().equals("0"))
 			currentPlayer = board.getPlayers().get("1");
 		else
 			currentPlayer = board.getPlayers().get("0");
@@ -564,6 +587,14 @@ public class GameEngine {
 
 	public Place getPlace(String place) {
 		return board.getPlaces().get(place);
+	}
+
+	public State getCurrentState() {
+		return this.currentState;
+	}
+
+	public void setSound(Boolean sound) {
+		graphic.sound(sound);
 	}
 
 }

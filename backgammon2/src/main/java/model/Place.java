@@ -65,11 +65,11 @@ public abstract class Place {
 
 	public Player getOwner()
 	{
-		if(size() > 0)
-		{
+		//if(size() > 0)
+		//{
 			return owner;
-		}
-		return null;
+		//}
+		//return null;
 	}
 
 	public void moveCheckerTo(Place place) {
