@@ -19,13 +19,15 @@ import model.Dice;
  */
 public class GDice {
 	private Image[] image;
+	private Image[] imageUsed;
 	private ImageView[] imageView;
 	private Group box;
 	
-	public GDice(Group box, Image[] image, int width)
+	public GDice(Group box, Image[] image, Image[] imageUsed, int width)
 	{
 		this.box = box;
 		this.image = image;
+		this.imageUsed = imageUsed;
 		imageView = new ImageView[4];
 		for(int i = 0; i < 4; i++)
 		{
@@ -43,9 +45,37 @@ public class GDice {
 	{
 		for(int i = 0; i < 4; i++)
 		{
-			if(i < dice.getValues().size())
+			if(i < dice.size())
 			{
-				imageView[i].setImage(image[dice.getValue(i)]);
+				if(dice.isUsed(i))
+				{
+					imageView[i].setImage(imageUsed[dice.getAbsValue(i)]);
+				}
+				else
+				{
+					imageView[i].setImage(image[dice.getAbsValue(i)]);
+				}
+			}
+			else
+			{
+				imageView[i].setImage(image[0]);
+			}
+		}
+	}
+
+	public void updateDice(Dice dice) {
+		for(int i = 0; i < 4; i++)
+		{
+			if(i < dice.size())
+			{
+				if(dice.isUsed(i))
+				{
+					imageView[i].setImage(imageUsed[dice.getAbsValue(i)]);
+				}
+				else
+				{
+					imageView[i].setImage(image[dice.getAbsValue(i)]);
+				}
 			}
 			else
 			{

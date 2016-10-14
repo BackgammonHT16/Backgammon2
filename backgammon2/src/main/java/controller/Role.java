@@ -8,20 +8,16 @@ public class Role extends State {
 		super(engine);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void nextAction() {
-		if(!beenhere)
+	
+	public void onClickDice()
+	{
+		engine.rollDices();
+		if(engine.getLegalStartPlaces().isEmpty())
 		{
-			beenhere = true;
-			System.out.println("Role");
+			System.out.println("No moves available!");
+			engine.nextPlayer();
+			engine.setState(new Role(engine));
 		}
-		Dice d = engine.getPlayer().rollDices();
-		if(d != null)
-		{
-			engine.setCurrentState();
-			engine.getCurrentMove().activateSelectStart();
-			engine.setState(new PickStart(engine));
-		}
+		engine.setState(new PickStart(engine));
 	}
 }

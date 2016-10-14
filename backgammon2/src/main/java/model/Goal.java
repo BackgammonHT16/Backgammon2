@@ -8,17 +8,16 @@ package model;
  *
  */
 public class Goal extends Place {
-	Player player;
 	
 	public Goal(Player player, String id)
 	{
-		super(id);
-		this.player = player;
+		super(player, id);
 	}
 
+	
 	@Override
-	public Player getOwner()
+	public int getIntId()
 	{
-		return player;
+		return -1;
 	}
 }

@@ -41,5 +41,55 @@ public class Checker {
 	public void moveTo(Place place) {
 		this.place.unregister(this);
 		place.register(this);
+		this.place = place;
+	}
+	
+	public boolean isInHomeField() 
+	{
+		if(player.getId() == "0")
+		{
+			if(place.getId() == "point18" ||
+					place.getId() == "point19" ||
+					place.getId() == "point20" ||
+					place.getId() == "point21" ||
+					place.getId() == "point22" ||
+					place.getId() == "point23" ||
+					place.getId() == "goal0")
+			{
+				return true;
+			}
+		}
+		if(player.getId() == "1")
+		{
+			if(place.getId() == "point0" ||
+					place.getId() == "point1" ||
+					place.getId() == "point2" ||
+					place.getId() == "point3" ||
+					place.getId() == "point4" ||
+					place.getId() == "point5" ||
+					place.getId() == "goal1")
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isInGoal() {
+		if(player.getId() == "0")
+		{
+			if(place.getId() == "goal0")
+			{
+				return true;
+			}
+		}
+		if(player.getId() == "1")
+		{
+			if(place.getId() == "goal1")
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

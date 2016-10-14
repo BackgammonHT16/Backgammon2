@@ -65,7 +65,8 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnMenuButton();
+                    	//GBoard.this.engine.clickedOnMenuButton();
+                    	GBoard.this.engine.onClickMenu();
                     }
                 });
 	}
@@ -81,9 +82,11 @@ public class GBoard {
 	{
 		Group box = new Group();
 		Image[] image = new Image[7];
+		Image[] imageUsed = new Image[7];
 		for(int i = 0; i < 7; i++)
 		{
 			image[i] = new Image("file:" + (String)config.get("diceImage") + i + ".png");
+			imageUsed[i] = new Image("file:" + (String)config.get("diceImageUsed") + i + ".png");
 		}
 		box.setTranslateX((Double)config.get("dicePositionX"));
 		box.setTranslateY((Double)config.get("dicePositionY"));
@@ -96,10 +99,11 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnDice();
+                    	// GBoard.this.engine.clickedOnDice();
+                    	GBoard.this.engine.onClickDice();
                     }
                 });
-		return new GDice(box, image, (Integer)config.get("diceWidth"));
+		return new GDice(box, image, imageUsed, (Integer)config.get("diceWidth"));
 	}
 	
 	public void moveCheckerFromTo(String from, String to)
@@ -126,7 +130,8 @@ public class GBoard {
 							(String)config.get("checker" + (Integer)config.get("point" + i + "CheckersPlayer") + "Image"),
 							(Integer)config.get("checkerWidth"),
 							false);
-					checkers.put(i+"", new GChecker(places.get("point"+i), im, checkerId+""));
+					GChecker checker = new GChecker(places.get("point"+i), im, checkerId+"");
+					checkers.put(i+"", checker);
 					root.getChildren().add(im);
 					checkerId++;
 				}
@@ -170,7 +175,8 @@ public class GBoard {
 	                {
 	                    public void handle(MouseEvent e)
 	                    {
-	                    	GBoard.this.engine.clickedOnPlace("point"+a);
+	                    	// GBoard.this.engine.clickedOnPlace("point"+a);
+	                    	GBoard.this.engine.onClickPlace("point"+a);
 	                    }
 	                });
 			root.getChildren().add(im);
@@ -199,7 +205,8 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnPlace("bar0");
+                    	//GBoard.this.engine.clickedOnPlace("bar0");
+                    	GBoard.this.engine.onClickPlace("bar0");
                     }
                 });
 		
@@ -218,7 +225,8 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnPlace("bar1");
+                    	// GBoard.this.engine.clickedOnPlace("bar1");
+                    	GBoard.this.engine.onClickPlace("bar1");
                     }
                 });
 	}
@@ -244,7 +252,8 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnPlace("goal0");
+                    	//GBoard.this.engine.clickedOnPlace("goal0");
+                    	GBoard.this.engine.onClickPlace("goal0");
                     }
                 });
 		
@@ -263,7 +272,8 @@ public class GBoard {
                 {
                     public void handle(MouseEvent e)
                     {
-                    	GBoard.this.engine.clickedOnPlace("goal1");
+                    	// GBoard.this.engine.clickedOnPlace("goal1");
+                    	GBoard.this.engine.onClickPlace("goal1");
                     }
                 });
 	}
@@ -271,5 +281,9 @@ public class GBoard {
 	public ImageView getImage()
 	{
 		return image;
+	}
+
+	public void updateDice(Dice dice) {
+		this.dice.updateDice(dice);
 	}
 }

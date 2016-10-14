@@ -15,9 +15,7 @@ public abstract class State {
 		this.engine = engine;
 	}
 	
-	public abstract void nextAction();
-	
-	public void onClickPlace()
+	public void onClickPlace(String placeId)
 	{
 		
 	}

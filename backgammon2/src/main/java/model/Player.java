@@ -32,11 +32,27 @@ public abstract class Player {
 		return id;
 	}
 	
-	public abstract Dice rollDices();
-	
-	public abstract Dice rollSingleDice();
+	public boolean allCheckersInHomeField()
+	{
+		boolean allAreHome = true;
+		for(Checker c : checkers)
+		{
+			allAreHome &= c.isInHomeField();
+		}
+		return allAreHome;
+	}
 
-	public abstract Place chooseStart();
+	public boolean won() {
+		boolean allAreAtGoal = true;
+		for(Checker c : checkers)
+		{
+			allAreAtGoal &= c.isInGoal();
+		}
+		return allAreAtGoal;
+	}
 	
-	public abstract Place chooseEnd();
+	public void addChecker(Checker checker)
+	{
+		checkers.add(checker);
+	}
 }

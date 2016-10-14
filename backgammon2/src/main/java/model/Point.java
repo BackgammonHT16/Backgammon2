@@ -12,4 +12,10 @@ public class Point extends Place {
 	{
 		super(id);
 	}
+
+	@Override
+	public int getIntId()
+	{
+		return Integer.parseInt(id.substring(5, id.length()));
+	}
 }

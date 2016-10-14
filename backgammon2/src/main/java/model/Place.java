@@ -28,6 +28,14 @@ public abstract class Place {
 		this.id = id;
 		owner = null;
 	}
+
+	public Place(Player player, String id)
+	{
+		this.id = id;
+		owner = player;
+	}
+	
+	public abstract int getIntId();
 	
 	public void register(Checker checker)
 	{
@@ -35,6 +43,8 @@ public abstract class Place {
 		{
 			checkers.add(checker);
 			owner = checker.getPlayer();
+			System.out.println("MODEL Checker " + checker.id + " at " + this.id + 
+					" registered. Current size is " + checkers.size());
 		}
 	}
 	
@@ -43,6 +53,8 @@ public abstract class Place {
 		if(!checkers.isEmpty())
 		{
 			checkers.remove(checker);
+			System.out.println("MODEL Checker " + checker.id + " from " + this.id + 
+					" removed. Current size is " + checkers.size());
 		}
 	}
 	

@@ -146,4 +146,8 @@ public class Graphic {
 		board.moveCheckerFromTo(from, to);
 	}
 
+	public void updateDice(Dice dice) {
+		board.updateDice(dice);
+	}
+
 }

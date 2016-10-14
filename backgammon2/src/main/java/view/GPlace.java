@@ -30,6 +30,8 @@ public abstract class GPlace {
 	public Position register(GChecker checker)
 	{
 		checkers.add(checker);
+		System.out.println("GRAPHIC Checker " + checker.id + " at " + this.id + 
+				" registered. Current size is " + checkers.size());
 		return getNewPosition();
 	}
 	
@@ -48,6 +50,8 @@ public abstract class GPlace {
 	public void unregister(GChecker checker)
 	{
 		checkers.remove(checker);
+		System.out.println("GRAPHIC Checker " + checker.id + " from " + this.id + 
+				" removed. Current size is " + checkers.size());
 	}
 	
 	private GChecker getLastChecker()

@@ -31,23 +31,6 @@ public class App extends Application
     	config = readConfig("config.xml");
     	
     	final GameEngine engine = new GameEngine(stage, config);
-
-
-    	new AnimationTimer()
-        {
-    		long delta = 0l;
-    		long lastTime =0;
-        	public void handle(long currentNanoTime)
-        	{
-    			// Update the state (convert to seconds)
-    			engine.update((float)(delta / 1000000000.0));
-    			// Render the world
-    			//engine.render(gc);
-    			
-    			delta = currentNanoTime - lastTime;
-    			lastTime = currentNanoTime;
-        	}
-        }.start();
     }
     
     private LinkedHashMap<String, Object> readConfig(String filename)
@@ -100,6 +83,7 @@ public class App extends Application
     	config.put("dicePositionY", 120d);
     	config.put("diceWidth", 30);
     	config.put("diceImage", "res/dice");
+    	config.put("diceImageUsed", "res/diceUsed");
     	// Point Position
     	config.put("point0PositionX", -300);
     	config.put("point0PositionY", -180);

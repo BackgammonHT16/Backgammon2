@@ -21,20 +21,8 @@ public class AI extends Player {
 		super(board, engine, id);
 	}
 
-	@Override
-	public Dice rollDices()
-	{
-		return engine.rollDices();
-	}
 
-	@Override
-	public Dice rollSingleDice()
-	{
-		return engine.rollSingleDice();
-	}
-	
 
-	@Override
 	public Place chooseStart() {
 		// TODO Add AI
 		LinkedHashMap<String, Place> places = engine.getLegalStartPlaces();
@@ -47,7 +35,6 @@ public class AI extends Player {
 	}
 	
 
-	@Override
 	public Place chooseEnd() {
 		// TODO Add AI
 		LinkedHashMap<String, Place> places = engine.getLegalEndPlaces();

@@ -19,24 +19,31 @@ public class PickEnd extends State {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void nextAction() {
-		if(!beenhere)
+	public void onClickPlace(String placeId)
+	{
+		if(engine.setEndPlace(engine.getPlace(placeId)) == true)
 		{
-			beenhere = true;
-			System.out.println("PickEnd");
-		}
-		Place p = engine.getCurrentMove().getEnd(); //engine.getPlayer().chooseEnd();
-		if(p != null)
-		{
-			if(engine.setEndPlace(p))
+			System.out.println("End Place: " + placeId);
+			engine.executeMove();		
+			if(engine.won())
 			{
-
-				engine.executeMove();
-				// Der gewählte Platz ist gültig
-				engine.setState(new RemoveDices(engine));
+				engine.finishGame();
 			}
-			// Der gewählte Platz ist ungültig d.h. der Zustand bleibt gleich
+			else if(engine.diceLeft())
+			{
+				if(engine.getLegalStartPlaces().isEmpty())
+				{
+					System.out.println("No moves available!");
+					engine.nextPlayer();
+					engine.setState(new Role(engine));
+				}
+				engine.setState(new PickStart(engine));
+			}
+			else
+			{
+				engine.nextPlayer();
+				engine.setState(new Role(engine));
+			}
 		}
 	}
 }

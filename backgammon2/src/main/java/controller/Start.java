@@ -10,27 +10,27 @@ package controller;
 
 import model.*;
 
-public class Start1 extends State {
+public class Start extends State {
 	
 	private boolean beenhere = false;
 
-	public Start1(GameEngine engine) {
+	public Start(GameEngine engine) {
 		super(engine);
 	}
 
-	@Override
-	public void nextAction() {
-		if(!beenhere)
+
+	public void onClickDice()
+	{
+		// Mensch würfelt
+		engine.rollSingleDice();
+		// AI würfelt
+		engine.nextPlayer();
+		engine.rollSingleDice();
+		if(engine.getDice().getValue(0) > engine.getDice().getValue(1))
 		{
-			beenhere = true;
-			System.out.println("Start1");
-		}
-		Dice d = engine.getPlayer().rollSingleDice();
-		if(d != null)
-		{
-			engine.setState(new Start2(engine));
 			engine.nextPlayer();
 		}
+		engine.setState(new PickStart(engine));
 	}
 
 }

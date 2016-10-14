@@ -71,8 +71,10 @@ public class Board {
 			{
 				for(int j = 0; j < (Integer)config.get("point" + i + "CheckersNumber"); j++)
 				{
-					Player p = players.get((Integer)config.get("point" + i + "CheckersPlayer"));
-					checkers.put(i+"", new Checker(p, places.get("point"+i), checkerId+""));
+					Player p = players.get(((Integer)config.get("point" + i + "CheckersPlayer")).toString());
+					Checker checker = new Checker(p, places.get("point"+i), checkerId+"");
+					p.addChecker(checker);
+					checkers.put(i+"", checker);
 					checkerId++;
 				}
 			}

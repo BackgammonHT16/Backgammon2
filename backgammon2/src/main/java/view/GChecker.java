@@ -36,6 +36,7 @@ public class GChecker {
 	{
 		this.place.unregister(this);
 		Position p = place.register(this);
+		this.place = place;
 		startAnimationTo(p);
 	}
 	
