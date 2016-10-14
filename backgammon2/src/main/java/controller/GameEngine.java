@@ -69,17 +69,24 @@ public class GameEngine {
 
 	public void onClickPlace(String placeId)
 	{
-		currentState.onClickPlace(placeId);
+		if(currentPlayer instanceof Human)
+		{
+			currentState.onClickPlace(placeId);
+		}
 	}
 	
 	public void onClickMenu()
 	{
-		currentState.onClickMenu();
+			currentState.onClickMenu();
+			
 	}
 	
 	public void onClickDice()
 	{
-		currentState.onClickDice();
+		if(currentPlayer instanceof Human)
+		{
+			currentState.onClickDice();
+		}
 	}
 	
 	
@@ -106,15 +113,15 @@ public class GameEngine {
 		{
 			if(state instanceof Role)
 			{
-				onClickDice();
+				currentState.onClickDice();
 			}
 			else if(state instanceof PickStart)
 			{
-				onClickPlace(((AI) currentPlayer).chooseStart().getId());
+				currentState.onClickPlace(((AI) currentPlayer).chooseStart().getId());
 			}
 			else if(state instanceof PickEnd)
 			{
-				onClickPlace(((AI) currentPlayer).chooseEnd().getId());
+				currentState.onClickPlace(((AI) currentPlayer).chooseEnd().getId());
 			}
 		}
 	}
