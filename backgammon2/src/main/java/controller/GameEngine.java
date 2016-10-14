@@ -82,6 +82,21 @@ public class GameEngine {
 	public void setState(State state)
 	{
 		currentState = state;
+		if(currentPlayer instanceof AI)
+		{
+			if(state instanceof Role)
+			{
+				onClickDice();
+			}
+			else if(state instanceof PickStart)
+			{
+				onClickPlace(((AI) currentPlayer).chooseStart().getId());
+			}
+			else if(state instanceof PickEnd)
+			{
+				onClickPlace(((AI) currentPlayer).chooseEnd().getId());
+			}
+		}
 	}
 
 	public void selectPlaces(LinkedHashMap<String, Place> places)
@@ -99,17 +114,61 @@ public class GameEngine {
 		
 		for(Map.Entry<String, Place> p : board.getPlaces().entrySet())
 		{
-			if(isLegalStartPlace(p.getValue()))
+			if(isLegalStartPlace(p.getValue(), false))
 			{
 				result.put(p.getKey(), p.getValue());
 			}
 		}
+		if(currentPlayer.allCheckersInHomeField() && result.isEmpty())
+		{
+			for(Map.Entry<String, Place> p : board.getPlaces().entrySet())
+			{
+				if(isLegalStartPlace(p.getValue(), true))
+				{
+					result.put(p.getKey(), p.getValue());
+				}
+			}
+		}
 		return result;
+	}
+	
+	private boolean allHome()
+	{
+		LinkedHashMap<String, Place> result = new LinkedHashMap<String, Place>();
+		
+		for(Map.Entry<String, Place> p : board.getPlaces().entrySet())
+		{
+			if(isLegalStartPlace(p.getValue(), false))
+			{
+				result.put(p.getKey(), p.getValue());
+			}
+		}
+		if(currentPlayer.allCheckersInHomeField() && result.isEmpty())
+		{
+			return true;
+		}
+		return false;
 	}
 
 
-	public boolean isLegalStartPlace(Place place)
+	public boolean isLegalStartPlace(Place place, boolean allHome)
 	{
+		// Falls ein Checker auf der Bar liegt muss dieses zuerst bewegt werden
+		if(board.getPlaces().get("bar" + currentPlayer.getId()).size() > 0)
+		{
+			if(place.getId().equals("bar" + currentPlayer.getId()))
+			{
+				if((isLegalEndPlace(getPlacePlusN(place, dice.getValue(0), allHome)) && !dice.isUsed(0)) ||
+						(isLegalEndPlace(getPlacePlusN(place, dice.getValue(1), allHome)) && !dice.isUsed(1)))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
 		if(place == null)
 		{
 			return  false;
@@ -120,8 +179,8 @@ public class GameEngine {
 		}
 		if(place.getOwner().getId() == currentPlayer.getId())
 		{
-			if((isLegalEndPlace(getPlacePlusN(place, dice.getValue(0))) && !dice.isUsed(0)) ||
-					(isLegalEndPlace(getPlacePlusN(place, dice.getValue(1))) && !dice.isUsed(1)))
+			if((isLegalEndPlace(getPlacePlusN(place, dice.getValue(0), allHome)) && !dice.isUsed(0)) ||
+					(isLegalEndPlace(getPlacePlusN(place, dice.getValue(1), allHome)) && !dice.isUsed(1)))
 			{
 				return true;
 			}
@@ -129,40 +188,40 @@ public class GameEngine {
 		return false;
 	}
 	
-	public Place getPlacePlusN(Place place, int n)
+	public Place getPlacePlusN(Place place, int n, boolean allHome)
 	{
 		int id = place.getIntId();
 		// Place ist ein Point
 		if(id <= 23 && id >= 0)
 		{
-			return getPlaceFromIDPlusN(id, n);
+			return getPlaceFromIDPlusN(id, n, allHome);
 		}
 		else if(place.getId() == "bar0")
 		{
-			return getPlaceFromIDPlusN(-1, n);
+			return getPlaceFromIDPlusN(-1, n, allHome);
 		}
 		else if(place.getId() == "goal0")
 		{
-			return getPlaceFromIDPlusN(24, n);
+			return getPlaceFromIDPlusN(24, n, allHome);
 		}
 		else if(place.getId() == "bar1")
 		{
-			return getPlaceFromIDPlusN(24, n);
+			return getPlaceFromIDPlusN(24, n, allHome);
 		}
 		else if(place.getId() == "goal1")
 		{
-			return getPlaceFromIDPlusN(-1, n);
+			return getPlaceFromIDPlusN(-1, n, allHome);
 		}
 		return null;
 	}
 	
-	private Place getPlaceFromIDPlusN(int id, int n)
+	private Place getPlaceFromIDPlusN(int id, int n, boolean allHome)
 	{
 		if(id + n <= 23 && id + n >= 0)
 		{
 			return getPlace("point" + (id + n));
 		}
-		else if(id + n == 24)
+		else if((id + n == 24) || ((id + n >= 24) && allHome))
 		{
 			if(currentPlayer.getId() == "0")
 			{
@@ -173,7 +232,7 @@ public class GameEngine {
 				return getPlace("bar1");
 			}
 		}
-		else if(id + n == -1)
+		else if(id + n == -1 || ((id + n <= -1) && allHome))
 		{
 			if(currentPlayer.getId() == "0")
 			{
@@ -213,44 +272,45 @@ public class GameEngine {
 	public LinkedHashMap<String, Place> getLegalEndPlaces()
 	{
 		LinkedHashMap<String, Place> result = new LinkedHashMap<String, Place>();
+		boolean allHome = allHome();
 		if(startPlace == null || dice == null)
 		{
 			return null;
 		}
 		if(dice.size() > 0 &&  !dice.isUsed(0) &&
-				isLegalEndPlace(getPlacePlusN(getPlace(startPlace), dice.getValue(0))))
+				isLegalEndPlace(getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome)))
 		{
 			result.put(
-					getPlacePlusN(getPlace(startPlace), dice.getValue(0)).getId(), 
-					getPlacePlusN(getPlace(startPlace), dice.getValue(0))
+					getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome).getId(), 
+					getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome)
 					);
 			if(dice.size() > 1 &&  !dice.isUsed(1) &&
 					isLegalEndPlace(
 							getPlacePlusN(
 									getPlace(startPlace), 
-									dice.getValue(0) + dice.getValue(1))))
+									dice.getValue(0) + dice.getValue(1), allHome)))
 			{
 				result.put(
-						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1)).getId(), 
-						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1)));
+						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome).getId(), 
+						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome));
 				if(dice.size() > 2 && !dice.isUsed(2) &&
 						isLegalEndPlace(
 								getPlacePlusN(
 										getPlace(startPlace), 
-										dice.getValue(0) + dice.getValue(1) + dice.getValue(2))))
+										dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome)))
 				{
 					result.put(
-							getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2)).getId(), 
-							getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2)));
+							getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome).getId(), 
+							getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome));
 					if(dice.size() > 3 && !dice.isUsed(3) &&
 							isLegalEndPlace(
 									getPlacePlusN(
 											getPlace(startPlace), 
-											dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3))))
+											dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3), allHome)))
 					{
 						result.put(
-								getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3)).getId(), 
-								getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3)));
+								getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3), allHome).getId(), 
+								getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3), allHome));
 					
 					}
 				}
@@ -260,19 +320,19 @@ public class GameEngine {
 
 		
 		if(dice.size() > 1 && !dice.isUsed(1) &&
-				isLegalEndPlace(getPlacePlusN(getPlace(startPlace), dice.getValue(1))))
+				isLegalEndPlace(getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome)))
 		{
 			result.put(
-					getPlacePlusN(getPlace(startPlace), dice.getValue(1)).getId(), 
-					getPlacePlusN(getPlace(startPlace), dice.getValue(1))
+					getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome).getId(), 
+					getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome)
 					);
 			if(!dice.isUsed(0) && isLegalEndPlace(getPlacePlusN(
 								getPlace(startPlace), 
-								dice.getValue(0) + dice.getValue(1))))
+								dice.getValue(0) + dice.getValue(1), allHome)))
 			{
 				result.put(
-						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1)).getId(), 
-						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1)));
+						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome).getId(), 
+						getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome));
 			}
 		}
 
@@ -306,9 +366,10 @@ public class GameEngine {
 	
 	private void removeDices()
 	{
+		boolean allHome = allHome();
 		if(dice.size() > 0)
 		{
-			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0));
+			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 			if(p != null)
 			{
 				if(p.getId() == endPlace)
@@ -321,7 +382,7 @@ public class GameEngine {
 		}
 		if(dice.size() > 1)
 		{
-			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(1));
+			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome);
 			if(p != null)
 			{
 				if(p.getId() == endPlace)
@@ -334,12 +395,12 @@ public class GameEngine {
 		}
 		if(dice.size() > 1)
 		{
-			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1));
+			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome);
 			if(p != null)
 			{
 				if(p.getId() == endPlace)
 				{
-					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0));
+					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
@@ -348,7 +409,7 @@ public class GameEngine {
 						graphic.updateDice(dice);
 						return;
 					}
-					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(1));
+					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(1), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
@@ -362,17 +423,17 @@ public class GameEngine {
 		}
 		if(dice.size() > 2)
 		{
-			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2));
+			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome);
 			if(p != null)
 			{
 				if(p.getId() == endPlace)
 				{
-					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0));
+					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
 					}
-					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1));
+					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
@@ -387,22 +448,22 @@ public class GameEngine {
 		}
 		if(dice.size() > 3)
 		{
-			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3));
+			Place p = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2) + dice.getValue(3), allHome);
 			if(p != null)
 			{
 				if(p.getId() == endPlace)
 				{
-					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0));
+					Place temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
 					}
-					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1));
+					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());
 					}
-					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2));
+					temp = getPlacePlusN(getPlace(startPlace), dice.getValue(0) + dice.getValue(1) + dice.getValue(2), allHome);
 					if(isLegalEndPlace(temp))
 					{
 						bumpDices(temp.getId());

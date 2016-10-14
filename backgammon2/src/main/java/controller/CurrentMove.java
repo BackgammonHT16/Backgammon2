@@ -26,7 +26,7 @@ public class CurrentMove {
 		Place place = engine.getPlace(p);
 		if(selectStart)
 		{
-			if(engine.isLegalStartPlace(place))
+			if(engine.isLegalStartPlace(place, false))
 			{
 				start = place;
 				selectStart = false;

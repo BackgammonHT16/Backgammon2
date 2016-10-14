@@ -30,7 +30,16 @@ public class Start extends State {
 		{
 			engine.nextPlayer();
 		}
-		engine.setState(new PickStart(engine));
+		if(engine.getLegalStartPlaces().isEmpty())
+		{
+			System.out.println("No moves available!");
+			engine.nextPlayer();
+			engine.setState(new Role(engine));
+		}
+		else
+		{
+			engine.setState(new PickStart(engine));
+		}
 	}
 
 }

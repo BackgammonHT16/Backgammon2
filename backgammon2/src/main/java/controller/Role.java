@@ -18,6 +18,9 @@ public class Role extends State {
 			engine.nextPlayer();
 			engine.setState(new Role(engine));
 		}
-		engine.setState(new PickStart(engine));
+		else
+		{
+			engine.setState(new PickStart(engine));
+		}
 	}
 }
