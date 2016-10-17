@@ -59,6 +59,7 @@ public class GameEngine {
 	
 	public void resetGame(int color, int difficulty, int time)
 	{
+		config.put("colorHuman", (Integer) color);
 		board = new Board(this, config);
     	graphic = new Graphic(this, stage, config);
     	dice = new Dice();
@@ -83,7 +84,7 @@ public class GameEngine {
 	
 	public void onClickDice()
 	{
-		if(currentPlayer instanceof Human)
+		if(currentPlayer instanceof Human || currentState instanceof Start)
 		{
 			currentState.onClickDice();
 		}
@@ -204,7 +205,7 @@ public class GameEngine {
 		{
 			return false;
 		}
-		if(place.getOwner().getId().equals(currentPlayer.getId()) && place.size() > 0)
+		if(place.getOwner().getId().equals(currentPlayer.getId()) && place.size() > 0 && !(place instanceof Goal))
 		{
 			if((isLegalEndPlace(getPlacePlusN(place, dice.getValue(0), allHome)) && !dice.isUsed(0)) ||
 					(isLegalEndPlace(getPlacePlusN(place, dice.getValue(1), allHome)) && !dice.isUsed(1)))

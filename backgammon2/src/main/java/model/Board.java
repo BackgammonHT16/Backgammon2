@@ -57,8 +57,16 @@ public class Board {
 	
 	private void initPlayers()
 	{
-		players.put("0", new Human(this, engine, "0"));
-		players.put("1", new AI(this, engine, "1"));
+		if((Integer) config.get("colorHuman") == 0)
+		{
+			players.put("0", new Human(this, engine, "0"));
+			players.put("1", new AI(this, engine, "1"));
+		} 
+		else
+		{
+			players.put("1", new Human(this, engine, "1"));
+			players.put("0", new AI(this, engine, "0"));
+		}
 	}
 	
 	private void initCheckers()

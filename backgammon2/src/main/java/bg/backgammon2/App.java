@@ -37,6 +37,10 @@ public class App extends Application
     {
     	// TODO XML Parser Implementieren
     	LinkedHashMap<String, Object> config = new LinkedHashMap<String, Object>();
+    	
+    	// Spieler beginnt mit Farbe blau
+		config.put("colorHuman", 1);
+    	
     	// Sound File
     	config.put("soundFile", "res/sound_long.mp3");
     	
