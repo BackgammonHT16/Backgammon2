@@ -42,7 +42,7 @@ public class App extends Application
 		config.put("colorHuman", 1);
     	
     	// Sound File
-    	config.put("soundFile", "res/sound_long.mp3");
+    	config.put("soundFile", "res/sound_long.wav");
     	
     	// Innere Fenster Größe
     	config.put("width", 800);
