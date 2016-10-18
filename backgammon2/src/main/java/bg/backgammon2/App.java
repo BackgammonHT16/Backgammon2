@@ -1,6 +1,14 @@
 package bg.backgammon2;
 
+import java.io.File;
 import java.util.LinkedHashMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import controller.*;
 import javafx.animation.AnimationTimer;
@@ -28,12 +36,57 @@ public class App extends Application
     public void start(Stage stage) {
     	LinkedHashMap<String, Object> config;
     	
-    	config = readConfig("config.xml");
+    	config = readFromXML("config.xml");
     	
     	final GameEngine engine = new GameEngine(stage, config);
     }
     
-    private LinkedHashMap<String, Object> readConfig(String filename)
+    private static LinkedHashMap<String, Object> readFromXML(String filename){
+		  try {
+
+				File file = new File("res/configtest.xml");
+
+				DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+			                             .newDocumentBuilder();
+
+				Document doc = dBuilder.parse(file);
+
+				
+				
+
+				if (doc.hasChildNodes()) {
+
+					NodeList nodeList=doc.getChildNodes().item(0).getChildNodes();
+					LinkedHashMap<String, Object> config = new LinkedHashMap<String, Object>();
+					  for (int count = 0; count < nodeList.getLength(); count++) {
+						  	
+							Node tempNode = nodeList.item(count);
+							// make sure it's element node.
+							if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
+
+								//System.out.println(tempNode.getNodeName()+ " " + tempNode.getTextContent());
+								if(((String)tempNode.getTextContent()).matches("^-?\\d+$"))
+								config.put(tempNode.getNodeName(), Integer.parseInt(tempNode.getTextContent()));
+								else
+								{
+									config.put(tempNode.getNodeName(), tempNode.getTextContent());
+								}
+							}
+							
+					  }
+					  return config;
+
+				}
+
+			    } catch (Exception e) {
+				System.out.println(e.getMessage());
+			    }
+
+			  
+		  return null;
+	  }
+    
+    private LinkedHashMap<String, Object> readConfigStatic(String filename)
     {
     	// TODO XML Parser Implementieren
     	LinkedHashMap<String, Object> config = new LinkedHashMap<String, Object>();

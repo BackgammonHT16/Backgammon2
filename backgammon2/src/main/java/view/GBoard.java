@@ -90,8 +90,8 @@ public class GBoard {
 			image[i] = new Image("file:" + (String)config.get("diceImage") + i + ".png");
 			imageUsed[i] = new Image("file:" + (String)config.get("diceImageUsed") + i + ".png");
 		}
-		box.setTranslateX((Double)config.get("dicePositionX"));
-		box.setTranslateY((Double)config.get("dicePositionY"));
+		box.setTranslateX((Integer)config.get("dicePositionX"));
+		box.setTranslateY((Integer)config.get("dicePositionY"));
 		root.getChildren().add(box);
 		// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 		box.setPickOnBounds(true);
