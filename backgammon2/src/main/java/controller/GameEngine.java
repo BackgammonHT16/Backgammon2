@@ -50,6 +50,12 @@ public class GameEngine {
     	currentPlayer = board.getPlayers().get("0");
     	*/
     	currentState = new Menu(this, null);
+		/* 
+		 * //Spielfeld ohne Menu aufrufen
+		 * resetGame(0,0,0);
+		 * currentState = new Start(this);
+		 */
+		
 	}
 	
 	public void quit()
