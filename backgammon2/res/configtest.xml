@@ -24,7 +24,7 @@
     	// Checker Größe
     	<checkerWidth>15</checkerWidth>
     	// Board Hintergrund
-    	<bgImage>res/map1.jpg</bgImage>
+    	<bgImage>res/map7.png</bgImage>
     	// Point
     	<pointImage>res/point.png</pointImage>
     	<pointSelectedImage>res/pointGlow.png</pointSelectedImage>
