@@ -24,9 +24,9 @@
     	// Checker Größe
     	<checkerWidth>15</checkerWidth>
     	// Board Hintergrund
-    	<bgImage>res/map4.png</bgImage>
+    	<bgImage>res/map10.png</bgImage>
     	// Point
-    	<pointImage>res/point.png</pointImage>
+    	<pointImage>res/stellung.png</pointImage>
     	<pointSelectedImage>res/pointGlow.png</pointSelectedImage>
     	// Bar
     	<bar0Image>res/bar0.png</bar0Image>
@@ -39,108 +39,132 @@
     	<goal1Image>res/goal1.png</goal1Image>
     	<goal1SelectedImage>res/goal1Glow.png</goal1SelectedImage>
     	// Checker
-    	<checker0Image>res/checker0.png</checker0Image>
-    	<checker1Image>res/checker1.png</checker1Image>
+    	<checker0Image>res/leo.png</checker0Image>
+    	<checker1Image>res/t80.png</checker1Image>
     	
     	// Menu
     	<menuButtonImage>res/menu3.png</menuButtonImage>
     	<menuButtonWidth>120</menuButtonWidth>
     	<menuButtonPositionX>435</menuButtonPositionX>
-    	<menuButtonPositionY>-40</menuButtonPositionY>
+    	<menuButtonPositionY>50</menuButtonPositionY>
     	
 
     	// Dice
-    	<dicePositionX>50</dicePositionX>
-    	<dicePositionY>100</dicePositionY>
-    	<diceWidth>30</diceWidth>
+    	<dicePositionX>-20</dicePositionX>
+    	<dicePositionY>65</dicePositionY>
+    	<diceWidth>35</diceWidth>
     	<diceImage>res/dice</diceImage>
     	<diceImageUsed>res/diceUsed</diceImageUsed>
     	// Point Position
-    	<point0PositionX>-300</point0PositionX>
-    	<point0PositionY>-180</point0PositionY>
+    	<point0PositionX>400</point0PositionX>
+    	<point0PositionY>200</point0PositionY>
+	<point0Rotation>0</point0Rotation>
     	
-    	<point1PositionX>-230</point1PositionX>
-    	<point1PositionY>-180</point1PositionY>
+    	<point1PositionX>350</point1PositionX>
+    	<point1PositionY>200</point1PositionY>
+	<point1Rotation>-0</point1Rotation>
 
-    	<point2PositionX>-230</point2PositionX>
-    	<point2PositionY>-80</point2PositionY>
+    	<point2PositionX>300</point2PositionX>
+    	<point2PositionY>200</point2PositionY>
+	<point2Rotation>0</point2Rotation>
 
-    	<point3PositionX>-230</point3PositionX>
-    	<point3PositionY>20</point3PositionY>
+    	<point3PositionX>250</point3PositionX>
+    	<point3PositionY>200</point3PositionY>
+	<point3Rotation>0</point3Rotation>
 
-    	<point4PositionX>-230</point4PositionX>
-    	<point4PositionY>120</point4PositionY>
+    	<point4PositionX>200</point4PositionX>
+    	<point4PositionY>200</point4PositionY>
+	<point4Rotation>0</point4Rotation>
 
-    	<point5PositionX>-160</point5PositionX>
-    	<point5PositionY>120</point5PositionY>
+    	<point5PositionX>150</point5PositionX>
+    	<point5PositionY>200</point5PositionY>
+	<point5Rotation>0</point5Rotation>
 
-    	<point6PositionX>-90</point6PositionX>
-    	<point6PositionY>120</point6PositionY>
+    	<point6PositionX>-50</point6PositionX>
+    	<point6PositionY>200</point6PositionY>
+	<point6Rotation>0</point6Rotation>
 
-    	<point7PositionX>-90</point7PositionX>
-    	<point7PositionY>20</point7PositionY>
+    	<point7PositionX>-100</point7PositionX>
+    	<point7PositionY>200</point7PositionY>
+	<point7Rotation>0</point7Rotation>
 
-    	<point8PositionX>-90</point8PositionX>
-    	<point8PositionY>-80</point8PositionY>
+    	<point8PositionX>-150</point8PositionX>
+    	<point8PositionY>200</point8PositionY>
+	<point8Rotation>0</point8Rotation>
 
-    	<point9PositionX>-90</point9PositionX>
-    	<point9PositionY>-180</point9PositionY>
+    	<point9PositionX>-200</point9PositionX>
+    	<point9PositionY>200</point9PositionY>
+	<point9Rotation>0</point9Rotation>
 
-    	<point10PositionX>-20</point10PositionX>
-    	<point10PositionY>-180</point10PositionY>
+    	<point10PositionX>-250</point10PositionX>
+    	<point10PositionY>200</point10PositionY>
+	<point10Rotation>0</point10Rotation>
 
-    	<point11PositionX>50</point11PositionX>
-    	<point11PositionY>-180</point11PositionY>
+    	<point11PositionX>-300</point11PositionX>
+    	<point11PositionY>200</point11PositionY>
+	<point11Rotation>0</point11Rotation>
 
-    	<point12PositionX>50</point12PositionX>
-    	<point12PositionY>-80</point12PositionY>
+    	<point12PositionX>-350</point12PositionX>
+    	<point12PositionY>-200</point12PositionY>
+	<point12Rotation>180</point12Rotation>
 
-    	<point13PositionX>50</point13PositionX>
-    	<point13PositionY>20</point13PositionY>
+    	<point13PositionX>-300</point13PositionX>
+    	<point13PositionY>-200</point13PositionY>
+	<point13Rotation>180</point13Rotation>
 
-    	<point14PositionX>50</point14PositionX>
-    	<point14PositionY>120</point14PositionY>
+    	<point14PositionX>-250</point14PositionX>
+    	<point14PositionY>-200</point14PositionY>
+	<point14Rotation>180</point14Rotation>
 
-    	<point15PositionX>120</point15PositionX>
-    	<point15PositionY>120</point15PositionY>
+    	<point15PositionX>-200</point15PositionX>
+    	<point15PositionY>-200</point15PositionY>
+	<point15Rotation>180</point15Rotation>
 
-    	<point16PositionX>190</point16PositionX>
-    	<point16PositionY>120</point16PositionY>
+    	<point16PositionX>-150</point16PositionX>
+    	<point16PositionY>-200</point16PositionY>
+	<point16Rotation>180</point16Rotation>
 
-    	<point17PositionX>190</point17PositionX>
-    	<point17PositionY>20</point17PositionY>
+    	<point17PositionX>-100</point17PositionX>
+    	<point17PositionY>-200</point17PositionY>
+	<point17Rotation>180</point17Rotation>
 
-    	<point18PositionX>190</point18PositionX>
-    	<point18PositionY>-80</point18PositionY>
+    	<point18PositionX>100</point18PositionX>
+    	<point18PositionY>-200</point18PositionY>
+	<point18Rotation>180</point18Rotation>
 
-    	<point19PositionX>190</point19PositionX>
-    	<point19PositionY>-180</point19PositionY>
+    	<point19PositionX>150</point19PositionX>
+    	<point19PositionY>-200</point19PositionY>
+	<point19Rotation>180</point19Rotation>
 
-    	<point20PositionX>260</point20PositionX>
-    	<point20PositionY>-180</point20PositionY>
+    	<point20PositionX>200</point20PositionX>
+    	<point20PositionY>-200</point20PositionY>
+	<point20Rotation>180</point20Rotation>
 
-    	<point21PositionX>330</point21PositionX>
-    	<point21PositionY>-180</point21PositionY>
+    	<point21PositionX>250</point21PositionX>
+    	<point21PositionY>-200</point21PositionY>
+	<point21Rotation>180</point21Rotation>
 
-    	<point22PositionX>330</point22PositionX>
-    	<point22PositionY>-80</point22PositionY>
+    	<point22PositionX>300</point22PositionX>
+    	<point22PositionY>-200</point22PositionY>
+	<point22Rotation>180</point22Rotation>
 
-    	<point23PositionX>330</point23PositionX>
-    	<point23PositionY>20</point23PositionY>
+    	<point23PositionX>350</point23PositionX>
+    	<point23PositionY>-200</point23PositionY>
+	<point23Rotation>180</point23Rotation>
     	
     	// Bar 1 Position
-    	<bar0PositionX>-370</bar0PositionX>
-    	<bar0PositionY>-180</bar0PositionY>
+    	<bar0PositionX>200</bar0PositionX>
+    	<bar0PositionY>10</bar0PositionY>
     	// Bar 2 Position
-    	<bar1PositionX>300</bar1PositionX>
-    	<bar1PositionY>120</bar1PositionY>
+    	<bar1PositionX>200</bar1PositionX>
+    	<bar1PositionY>80</bar1PositionY>
 
     	// Goal 1 Position
-    	<goal0PositionX>370</goal0PositionX>
-    	<goal0PositionY>120</goal0PositionY>
+    	<goal0PositionX>435</goal0PositionX>
+    	<goal0PositionY>-250</goal0PositionY>
     	// Goal 2 Position
-    	<goal1PositionX>-370</goal1PositionX>
-    	<goal1PositionY>-120</goal1PositionY>
+    	<goal1PositionX>435</goal1PositionX>
+    	<goal1PositionY>250</goal1PositionY>
     	
   	// Checkers hinzufügen
     	<point0CheckersNumber>2</point0CheckersNumber>
@@ -166,10 +190,4 @@
 
     	<point23CheckersNumber>2</point23CheckersNumber>
     	<point23CheckersPlayer>1</point23CheckersPlayer>
-
-    	<point0CheckersNumber>2</point0CheckersNumber>
-    	<point0CheckersPlayer>1</point0CheckersPlayer>
-
-    	<point23CheckersNumber>2</point23CheckersNumber>
-    	<point23CheckersPlayer>0</point23CheckersPlayer>
 </root>

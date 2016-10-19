@@ -52,7 +52,7 @@ public abstract class GPlace {
 	
 	private Position getNewPosition()
 	{
-		double x = image.getTranslateX() + 1.5 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
+		double x = image.getTranslateX() + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
 		double y = image.getTranslateY() + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
 		return new Position(x, y);
 	}

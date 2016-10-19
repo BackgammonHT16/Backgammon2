@@ -171,6 +171,8 @@ public class GBoard {
 					true,
 					(Integer)config.get("point" + i + "PositionX"),
 					(Integer)config.get("point" + i + "PositionY"));
+			System.out.println((Integer) config.get("point" + i + "Rotation")+ "i = "+i);
+			im.setRotate((Integer) config.get("point" + i + "Rotation"));
 			// MouseClick wird auch auf transperentem Hintergrund ausgelöst.
 			im.setPickOnBounds(true);
 			final int a = i;

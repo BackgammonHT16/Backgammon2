@@ -44,7 +44,7 @@ public class App extends Application
     private static LinkedHashMap<String, Object> readFromXML(String filename){
 		  try {
 
-				File file = new File("res/configtest.xml");
+				File file = new File("res/config1.xml");
 
 				DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
 			                             .newDocumentBuilder();
@@ -64,7 +64,7 @@ public class App extends Application
 							// make sure it's element node.
 							if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
 
-								//System.out.println(tempNode.getNodeName()+ " " + tempNode.getTextContent());
+								System.out.println(tempNode.getNodeName()+ " " + tempNode.getTextContent());
 								if(((String)tempNode.getTextContent()).matches("^-?\\d+$"))
 								config.put(tempNode.getNodeName(), Integer.parseInt(tempNode.getTextContent()));
 								else
