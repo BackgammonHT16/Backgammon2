@@ -30,7 +30,7 @@ public class GChecker {
 	{
 		image.setTranslateX(p.x);
 		image.setTranslateY(p.y);
-		image.setRotate(p.rotation);
+		//image.setRotate(p.rotation);
 	}
 	
 	public void moveTo(GPlace place)

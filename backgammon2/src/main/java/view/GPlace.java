@@ -52,17 +52,20 @@ public abstract class GPlace {
 	
 	private Position getNewPosition()
 	{
-		double x = - image.getFitWidth() / 2 + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
-		double y = - image.getFitHeight() / 2 + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
-
-		x = Math.cos(image.getRotate() / 180 * Math.PI) * x - Math.sin(image.getRotate() / 180 * Math.PI) * y;
-		y = Math.sin(image.getRotate() / 180 * Math.PI) * x + Math.cos(image.getRotate() / 180 * Math.PI) * y;
-
-		x = image.getTranslateX() + image.getFitWidth() / 2 + x;
-		y = image.getTranslateY() + image.getFitHeight() / 2 + y;
 		
-		// x = image.getTranslateX() + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
-		// y = image.getTranslateY() + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
+		double width = image.boundsInLocalProperty().get().getWidth(); 
+		double height = image.boundsInLocalProperty().get().getHeight();
+		double x0 = 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
+		double y0 = 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 1);
+
+		double angle = -Math.toRadians(image.getRotate());
+		
+		double x1 = Math.cos(angle) * x0 + Math.sin(angle) * y0;
+		double y1 = - Math.sin(angle) * x0 + Math.cos(angle) * y0;
+
+		double x = image.getTranslateX() + x1;
+		double y = image.getTranslateY() + y1;
+		
 		return new Position(x, y, image.getRotate());
 	}
 	
