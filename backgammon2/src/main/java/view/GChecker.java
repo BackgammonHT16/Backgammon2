@@ -30,6 +30,7 @@ public class GChecker {
 	{
 		image.setTranslateX(p.x);
 		image.setTranslateY(p.y);
+		image.setRotate(p.rotation);
 	}
 	
 	public void moveTo(GPlace place)
@@ -47,11 +48,13 @@ public class GChecker {
 		t.getKeyFrames().addAll(
 	            new KeyFrame(Duration.ZERO, // set start position at 0
 	                new KeyValue(image.translateXProperty(), image.getTranslateX()),
-	                new KeyValue(image.translateYProperty(), image.getTranslateY())
+	                new KeyValue(image.translateYProperty(), image.getTranslateY())/*,
+	                new KeyValue(image.rotateProperty(), image.getRotate())*/
 	            ),
 	            new KeyFrame(new Duration(2000), // set end position at 40s
 	                new KeyValue(image.translateXProperty(), p.x),
-	                new KeyValue(image.translateYProperty(), p.y)
+	                new KeyValue(image.translateYProperty(), p.y)/*,
+	                new KeyValue(image.rotateProperty(), p.rotation)*/
 	            )
 	        );
 		t.play();

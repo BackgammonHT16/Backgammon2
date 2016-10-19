@@ -52,9 +52,18 @@ public abstract class GPlace {
 	
 	private Position getNewPosition()
 	{
-		double x = image.getTranslateX() + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
-		double y = image.getTranslateY() + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
-		return new Position(x, y);
+		double x = - image.getFitWidth() / 2 + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
+		double y = - image.getFitHeight() / 2 + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
+
+		x = Math.cos(image.getRotate() / 180 * Math.PI) * x - Math.sin(image.getRotate() / 180 * Math.PI) * y;
+		y = Math.sin(image.getRotate() / 180 * Math.PI) * x + Math.cos(image.getRotate() / 180 * Math.PI) * y;
+
+		x = image.getTranslateX() + image.getFitWidth() / 2 + x;
+		y = image.getTranslateY() + image.getFitHeight() / 2 + y;
+		
+		// x = image.getTranslateX() + 1.0 * checkerSize * (int)((checkers.size()-1) % 3 - 1);
+		// y = image.getTranslateY() + 1.0 * checkerSize * (int)((checkers.size()-1) / 3 + 2);
+		return new Position(x, y, image.getRotate());
 	}
 	
 	public void moveCheckerTo(GPlace place)
