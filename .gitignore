@@ -1,4 +1,9 @@
 
+# Local files for Backup etc
+backgammon2/res/old/
+backgammon2/res/sicherung/
+
+
 # Created by https://www.gitignore.io/api/eclipse,java,maven,git
 
 ### Eclipse ###
