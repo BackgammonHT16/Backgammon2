@@ -25,6 +25,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafxsvg.SvgImageLoaderFactory;
 import model.Dice;
 import model.Place;
 
@@ -54,6 +55,8 @@ public class Graphic {
 		this.engine = engine;
 		this.stage = stage;
 		
+
+		SvgImageLoaderFactory.install();
 
 		// Root element initialisieren
         StackPane root = new StackPane();

@@ -27,7 +27,7 @@
     	<bgImage>res/map10.png</bgImage>
     	// Point
     	<pointImage>res/stellung.png</pointImage>
-    	<pointSelectedImage>res/stellungangriffhinterlegt.png</pointSelectedImage>
+    	<pointSelectedImage>res/stellung.svg</pointSelectedImage>
     	// Bar
     	<bar0Image>res/einsatzlazarettblau.png</bar0Image>
     	<bar0SelectedImage>res/stabilisierenblau.png</bar0SelectedImage>
@@ -39,8 +39,8 @@
     	<goal1Image>res/vermuteterRaumFeind.png</goal1Image>
     	<goal1SelectedImage>res/raumFeind.png</goal1SelectedImage>
     	// Checker
-    	<checker0Image>res/leo.png</checker0Image>
-    	<checker1Image>res/t80.png</checker1Image>
+    	<checker0Image>res/leo.svg</checker0Image>
+    	<checker1Image>res/t80.svg</checker1Image>
     	
     	// Menu
     	<menuButtonImage>res/menu.png</menuButtonImage>
