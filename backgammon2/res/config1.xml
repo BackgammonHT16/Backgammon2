@@ -27,7 +27,7 @@
     	<bgImage>res/map10.png</bgImage>
     	// Point
     	<pointImage>res/stellung.png</pointImage>
-    	<pointSelectedImage>res/stellungangriffhinterlegt.png</pointSelectedImage>
+    	<pointSelectedImage>res/stellungangriff.png</pointSelectedImage>
     	// Bar
     	<bar0Image>res/einsatzlazarettblau.png</bar0Image>
     	<bar0SelectedImage>res/stabilisierenblau.png</bar0SelectedImage>
