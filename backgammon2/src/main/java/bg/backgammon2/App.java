@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -19,19 +21,25 @@ import javafx.stage.Stage;
 import view.Graphic;
 
 /**
- * Backgammon
+ * Einstiegsklasse des Spiels. 
  * 
  */
 public class App extends Application
 {
-	
-	//testKommentar
-	
+	protected static final Logger log = LogManager.getLogger(App.class);
+
+	/**
+	 * main Einstiegspunkt des Programms
+	 * 
+	 * @param args Wird nicht verwendet.
+	 */
     public static void main( String[] args )
     {
     	launch(args);
     }
     
+    
+    // obsolete
     @Override
     public void start(Stage stage) {
     	LinkedHashMap<String, Object> config;
@@ -41,6 +49,7 @@ public class App extends Application
     	final GameEngine engine = new GameEngine(stage, config);
     }
     
+    // obsolete
     private static LinkedHashMap<String, Object> readFromXML(String filename){
 		  try {
 
@@ -52,8 +61,6 @@ public class App extends Application
 				Document doc = dBuilder.parse(file);
 
 				
-				
-
 				if (doc.hasChildNodes()) {
 
 					NodeList nodeList=doc.getChildNodes().item(0).getChildNodes();
@@ -86,6 +93,8 @@ public class App extends Application
 		  return null;
 	  }
     
+    
+    // obsolete
     private LinkedHashMap<String, Object> readConfigStatic(String filename)
     {
     	// TODO XML Parser Implementieren
