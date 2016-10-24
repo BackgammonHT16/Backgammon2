@@ -20,7 +20,7 @@
     	// Place Größe
     	<barWidth>120</barWidth>
     	// Place Größe
-    	<goalWidth>60</goalWidth>
+    	<goalWidth>65</goalWidth>
     	// Checker Größe
     	<checkerWidth>20</checkerWidth>
     	// Board Hintergrund
