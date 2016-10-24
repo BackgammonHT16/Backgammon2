@@ -44,6 +44,7 @@ public class App extends Application
     public void start(Stage stage) {
     	LinkedHashMap<String, Object> config;
     	
+    	
     	config = readFromXML("config.xml");
     	
     	final GameEngine engine = new GameEngine(stage, config);
